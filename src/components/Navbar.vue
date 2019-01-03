@@ -1,10 +1,12 @@
 <template>
   <!-- Navbar -->
-  <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-light">
+  <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
     <div class="container px-4">
-      <a class="navbar-brand" href="../index.html">
-        <h1>Portunus</h1>
-      </a>
+      <router-link to="/">
+        <a class="navbar-brand">
+          <h1 style="font-family:'College'">Portunus</h1>
+        </a>
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -21,9 +23,11 @@
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
-              <a href="../index.html">
-                <h1>Portunus</h1>
-              </a>
+              <router-link to="/">
+                <a class="navbar-brand">
+                  <h1 style="font-family:'College'">Portunus</h1>
+                </a>
+              </router-link>
             </div>
             <div class="col-6 collapse-close">
               <button

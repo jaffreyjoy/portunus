@@ -1,17 +1,17 @@
 <template>
-  <div class="bg-default">
+  <div :style="background">
     <div class="main-content">
       <!-- Navbar -->
       <Navbar/>
       <!-- Header -->
-      <div class="header bg-gradient-primary py-7 py-lg-8">
+      <div class="header py-7 py-lg-8">
         <div class="container">
-          <div class="header-body text-center mb-7">
+          <div class="header-body text-center mb-5">
             <div class="row justify-content-center">
               <div class="col-lg-5 col-md-6">
-                <h1 class="text-white">Welcome!</h1>
+                <h1 class="text-dark">Welcome!</h1>
                 <p
-                  class="text-lead text-light"
+                  class="text-lead text-white"
                 >Share files securely with Portunus!</p>
               </div>
             </div>
@@ -133,8 +133,15 @@
 import Navbar from '../components/Navbar.vue'
 export default {
   name: "Register",
-    components:{
+  components:{
     Navbar
+  },
+  data: function() {
+    return {
+      background: {
+        "background-image": 'linear-gradient(0deg, #3d3393 0%, #2b76b9 37%, #2cacd1 65%, #35eb93 100%)',
+      }
+    }
   }
 };
 </script>
