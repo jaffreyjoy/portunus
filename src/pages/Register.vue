@@ -95,46 +95,18 @@
       </div>
     </div>
     <!-- Footer -->
-    <footer class="py-5">
-      <div class="container">
-        <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-              &copy; 2018
-              <router-link to="/register">
-                <i class="ni ni-circle-08"></i>
-                <span class="nav-link-inner--text">
-                  Register
-                </span>
-              </router-link>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <router-link to="/register">
-                  <a class="nav-link nav-link-icon">
-                    <i class="ni ni-circle-08"></i>
-                  <span class="nav-link-inner--text">
-                    Register
-                  </span>
-                  </a>
-                </router-link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
+import Footer from '../components/Footer.vue'
 export default {
   name: "Register",
   components:{
-    Navbar
+    Navbar,
+    Footer
   },
   data: function() {
     return {
