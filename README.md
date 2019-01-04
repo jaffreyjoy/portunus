@@ -1,29 +1,15 @@
-# portunus
+# Portunus
 
-## Project setup
-```
-yarn install
-```
+## Initial setup
+`yarn`
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+## Start MongoDB server
+- `mongod`
+- `mongo`
 
-### Compiles and minifies for production
-```
-yarn run build
-```
+## Start Express server
+`yarn start`
 
-### Run your tests
-```
-yarn run test
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Start Development server
+- `yarn serve`
+- Open `http//localhost:8080`
