@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- Navbar -->
-    <Navbar/>
     <!-- Main content -->
     <section class="pb-4">
       <div class="logo-img-cont pt-5 pb-8">
@@ -11,19 +9,13 @@
         A secure file sharing application with ultra-mega-secure authentication !!!!!
       </p>
     </section>
-    <!-- Footer -->
-    <Footer/>
   </div>
 </template>
 
 <script>
-import Navbar from '../components/Navbar.vue'
-import Footer from '../components/Footer.vue'
 export default {
   name: "Home",
   components:{
-    Navbar,
-    Footer
   },
   methods: {
     register() {

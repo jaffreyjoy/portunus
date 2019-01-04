@@ -1,14 +1,25 @@
 <template>
   <div id="app" :style="background">
-      <transition name="fade">
-        <router-view></router-view>
-      </transition>
+    <!-- Navbar -->
+    <Navbar/>
+    <!-- Main View -->
+    <transition name="bounce">
+      <router-view></router-view>
+    </transition>
+    <!-- Footer -->
+    <Footer/>
   </div>
 </template>
 
 <script>
+import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
 export default {
   name: "app",
+    components:{
+    Navbar,
+    Footer
+  },
   data() {
     return {
       background: {
@@ -20,11 +31,18 @@ export default {
 </script>
 
 <style>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s ease-out;
-}
-
-.fade-enter, .fade-leave-to {
-  opacity: 0.2;
-}
+  .bounce-enter-active {
+    animation: bounce-in .8s;
+  }
+  .bounce-leave-active {
+    animation: bounce-out .5s;
+  }
+  @keyframes bounce-in {
+    0% { transform: scale(.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes bounce-out {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(.9); opacity: 0; }
+  }
 </style>
