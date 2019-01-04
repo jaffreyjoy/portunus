@@ -1,5 +1,5 @@
 <template>
-  <div :style="background">
+  <div>
     <!-- Navbar -->
     <Navbar/>
     <!-- Main content -->
@@ -21,22 +21,15 @@ import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 export default {
   name: "Home",
-  data: function() {
-    return {
-      background: {
-        "background-image": 'linear-gradient(0deg, #3d3393 0%, #2b76b9 37%, #2cacd1 65%, #35eb93 100%)',
-      }
-    }
+  components:{
+    Navbar,
+    Footer
   },
   methods: {
     register() {
       this.$router.push('/register')
     }
   },
-  components:{
-    Navbar,
-    Footer
-  }
 };
 </script>
 

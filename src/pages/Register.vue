@@ -1,5 +1,5 @@
 <template>
-  <div :style="background">
+  <div>
     <div class="main-content">
       <!-- Navbar -->
       <Navbar/>
@@ -107,13 +107,6 @@ export default {
   components:{
     Navbar,
     Footer
-  },
-  data: function() {
-    return {
-      background: {
-        "background-image": 'linear-gradient(0deg, #3d3393 0%, #2b76b9 37%, #2cacd1 65%, #35eb93 100%)',
-      }
-    }
   }
 };
 </script>
