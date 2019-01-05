@@ -2,15 +2,18 @@ const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io').listen(server);
-const { checkDb } = require('./database');
+const { connectDb } = require('./database');
+const auth = require('./auth');
 
 io.on('connection', function(socket) {
-    socket.on('checkDb', async function(name, res) {
-        const user = await checkDb(name);
-        res(user);
-    });
+    socket.on('register', async function(user, respond) {
+        const res = await auth.register(user);
+        respond(res);
+    })
 });
 
-server.listen(process.env.PORT || 3000, function() {
-    console.log('Express server listening on '+server.address().port);
-});
+connectDb(function() {
+    server.listen(process.env.PORT || 3000, function() {
+        console.log('Express server listening on '+server.address().port);
+    });
+})
