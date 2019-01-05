@@ -42,7 +42,7 @@
                     <input class="form-control" placeholder="Name" type="text" v-model="name">
                   </div>
                 </div>
-                <div class="text-muted font-italic">
+                <div class="text-muted">
                   <small>
                     <span v-if="!validEmail" class="text-warning font-weight-700">Incomplete/Invalid E-mail address</span>
                   </small>
@@ -57,7 +57,7 @@
                     <input class="form-control" placeholder="Email" type="email" v-model="email">
                   </div>
                 </div>
-                <div class="text-muted font-italic">
+                <div class="text-muted">
                   <small>
                     <span v-if="!validUsername" class="text-warning font-weight-700">Username must be atleast 6 characters long</span>
                   </small>
@@ -72,7 +72,7 @@
                     <input class="form-control" placeholder="Username" type="text" v-model="username">
                   </div>
                 </div>
-                <div class="text-muted font-italic">
+                <div class="text-muted">
                   <small>
                     <span v-if="passwordStrengthCalc" class="font-weight-700">Password Strength: </span>
                     <span v-if="passwordStrengthCalc" :class="[passwordStrengthClass]" class="font-weight-700">{{ passwordStrength }}</span>
@@ -95,11 +95,12 @@
                         class="custom-control-input"
                         id="customCheckRegister"
                         type="checkbox"
+                        v-model="termsChecked"
                       >
                       <label class="custom-control-label" for="customCheckRegister">
                         <span class="text-muted">
                           I agree with the
-                          <a href="#!">Privacy Policy</a>
+                          <router-link to="/terms">Terms and Conditions</router-link>
                         </span>
                       </label>
                     </div>
@@ -133,7 +134,8 @@ export default {
       passwordStrengthClass: null,
       alertMessage: null,
       invalidUsername: null,
-      invalidEmail: null
+      invalidEmail: null,
+      termsChecked: false
     }
   },
   computed: {
@@ -164,12 +166,10 @@ export default {
         if (len > 0 && len <= 3) {
           this.passwordStrengthClass = 'text-danger';
           this.passwordStrength = 'Weak';
-        }
-        else if (len >= 4 && len <= 6) {
+        } else if (len >= 4 && len <= 6) {
           this.passwordStrengthClass = 'text-warning';
           this.passwordStrength = 'Medium';
-        }
-        else {
+        } else {
           this.passwordStrengthClass = 'text-success';
           this.passwordStrength = 'Strong';
         }
@@ -190,6 +190,9 @@ export default {
         return false;
       } else if (this.invalidEmail || this.invalidUsername) {
         this.showAlert("Please fill valid entries :)");
+        return false;
+      } else if (!this.termsChecked) {
+        this.showAlert("Please accept the Terms and Conditions :)");
         return false;
       }
       return true;

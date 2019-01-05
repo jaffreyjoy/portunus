@@ -1,3 +1,4 @@
+const md5 = require("apache-md5");
 const  { getDb } = require('./database');
 
 async function checkIfExists(field, value) {
@@ -31,6 +32,7 @@ module.exports = {
             checkDuplicate(user).then(res => {
                 if (res) resolve(res === 'username'? 2: 3)
                 else {
+                    user.password = md5(user.password);
                     db.collection('user').insertOne(user, function(err, res) {
                         if (err) {
                             console.error(err);

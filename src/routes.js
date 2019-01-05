@@ -1,5 +1,6 @@
 import Home from './pages/Home.vue'
 import Register from './pages/Register.vue'
+import Terms from './pages/Terms.vue'
 
 export default [
   {
@@ -11,5 +12,10 @@ export default [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/terms',
+    name: 'Terms',
+    component: Terms
   }
 ]

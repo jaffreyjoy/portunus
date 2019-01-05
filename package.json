@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "apache-md5": "^1.1.2",
     "express": "^4.16.4",
     "mongodb": "^3.1.10",
     "socket.io": "^2.2.0",
