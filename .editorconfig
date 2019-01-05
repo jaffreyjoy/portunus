@@ -1,0 +1,6 @@
+root = true
+
+# 2 spaces indent for HTML, JS and VUE files
+[*.{vue,js,html}]
+indent_style = space
+indent_size = 2
