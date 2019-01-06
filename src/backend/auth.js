@@ -1,4 +1,4 @@
-const md5 = require("apache-md5");
+const md5 = require("blueimp-md5");
 const  { getDb } = require('./database');
 
 async function checkIfExists(field, value) {
@@ -41,6 +41,24 @@ module.exports = {
                             resolve(1);
                         }
                     });
+                }
+            });
+        });
+    },
+
+    login: async function(user) {
+        const db = getDb();
+        user.password = md5(user.password);
+        return new Promise(resolve => {
+            db.collection('user').find(user).toArray(function(err, res) {
+                console.log(res);
+                if (err) {
+                    console.error(err);
+                    resolve(0);
+                } else if (res.length > 0) {
+                    resolve(1);
+                } else {
+                    resolve(2);
                 }
             });
         });

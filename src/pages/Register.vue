@@ -100,7 +100,7 @@
                       <label class="custom-control-label" for="customCheckRegister">
                         <span class="text-muted">
                           I agree with the
-                          <router-link to="/terms">Terms and Conditions</router-link>
+                          <router-link to="/terms" target="_blank">Terms and Conditions</router-link>
                         </span>
                       </label>
                     </div>
@@ -119,7 +119,7 @@
 </template>
 
 <script>
-import register from '../store';
+import client from '../client';
 export default {
   name: "Register",
   components: {
@@ -180,10 +180,6 @@ export default {
     }
   },
   methods: {
-    showAlert: function(message) {
-      this.alertMessage = message;
-      this.hideAlert();
-    },
     validate: function() {
       if (!this.name || !this.email || !this.username || !this.password) {
         this.showAlert("Please fill all the fields :)");
@@ -205,7 +201,7 @@ export default {
           username: this.username,
           password: this.password
         }
-        const res = await register(user);
+        const res = await client.register(user);
         const message = {
           0: 'Something went wrong',
           1: 'Registration successfull',
@@ -214,6 +210,10 @@ export default {
         }
         this.showAlert(message[res]);
       }
+    },
+    showAlert: function(message) {
+      this.alertMessage = message;
+      this.hideAlert();
     },
     hideAlert: function() {
       setTimeout(() => {

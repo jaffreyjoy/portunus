@@ -9,7 +9,12 @@ io.on('connection', function(socket) {
     socket.on('register', async function(user, respond) {
         const res = await auth.register(user);
         respond(res);
-    })
+    });
+
+    socket.on('login', async function(user, respond) {
+        const res = await auth.login(user);
+        respond(res);
+    });
 });
 
 connectDb(function() {

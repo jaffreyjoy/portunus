@@ -13,17 +13,6 @@
             </router-link>
           </div>
         </div>
-        <div class="col-xl-6">
-          <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-            <li class="nav-item">
-              <router-link to="/register">
-                <span class="nav-link-inner--text text-light">
-                  Register
-                </span>
-              </router-link>
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
   </footer>

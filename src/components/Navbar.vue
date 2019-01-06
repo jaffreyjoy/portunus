@@ -51,9 +51,19 @@
             <router-link to="/register">
               <a class="nav-link nav-link-icon">
                 <i class="ni ni-circle-08"></i>
-              <span class="nav-link-inner--text">
-                Register
-              </span>
+                <span class="nav-link-inner--text">
+                  Register
+                </span>
+              </a>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/login">
+              <a class="nav-link nav-link-icon">
+                <i class="ni ni-circle-08"></i>
+                <span class="nav-link-inner--text">
+                  Login
+                </span>
               </a>
             </router-link>
           </li>
