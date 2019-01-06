@@ -17,11 +17,19 @@
           <ul class="nav nav-footer justify-content-center justify-content-xl-end">
             <li class="nav-item">
               <router-link to="/register">
-                <span class="nav-link-inner--text text-light">
+                <span class="nav-link nav-link-inner--text text-light">
                   Register
                 </span>
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link to="/app">
+                <span class="nav-link nav-link-inner--text text-light">
+                  App
+                </span>
+              </router-link>
+            </li>
+
           </ul>
         </div>
       </div>

@@ -2,10 +2,8 @@
   <!-- Navbar -->
   <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
     <div class="container px-4">
-      <router-link to="/">
-        <a class="navbar-brand">
-          <h1 style="font-family:'College'">Portunus</h1>
-        </a>
+      <router-link class="text-center" to="/">
+        <img class="brand-img" src="../../public/assets/img/icons/logo/logo.png" alt="brand">
       </router-link>
       <button
         class="navbar-toggler"
@@ -24,9 +22,7 @@
           <div class="row">
             <div class="col-6 collapse-brand">
               <router-link to="/">
-                <a class="navbar-brand">
-                  <h1 style="font-family:'College'">Portunus</h1>
-                </a>
+                <h1 style="font-family:'College'">PORTUNUS</h1>
               </router-link>
             </div>
             <div class="col-6 collapse-close">
@@ -39,8 +35,6 @@
                 aria-expanded="false"
                 aria-label="Toggle sidenav"
               >
-                <span></span>
-                <span></span>
               </button>
             </div>
           </div>
@@ -51,9 +45,19 @@
             <router-link to="/register">
               <a class="nav-link nav-link-icon">
                 <i class="ni ni-circle-08"></i>
-              <span class="nav-link-inner--text">
-                Register
-              </span>
+                <span class="nav-link-inner--text">
+                  Register
+                </span>
+              </a>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/app">
+              <a class="nav-link nav-link-icon">
+                <i class="ni ni-app"></i>
+                <span class="nav-link-inner--text">
+                  App
+                </span>
               </a>
             </router-link>
           </li>
@@ -71,4 +75,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+@media screen and (min-width: 600px) {
+  .brand-img{
+    width: 15vw;
+  }
+}
+@media screen and (max-width: 600px) {
+  .brand-img{
+    width: 40vw;
+  }
+}
 </style>
