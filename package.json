@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "app": "(start yarn start && start yarn serve) || (yarn start & yarn serve)",
     "start": "node src/backend/server.js",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
