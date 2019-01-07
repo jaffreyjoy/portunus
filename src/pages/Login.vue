@@ -108,6 +108,10 @@ export default {
           2: 'Incorrect credentials :('
         }
         this.showAlert(message[res]);
+        if (res === 1) {
+          await client.getUserSession(this.username);
+          this.$router.push('/app');
+        }
       }
     },
     showAlert: function(message) {

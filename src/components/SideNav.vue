@@ -100,25 +100,19 @@
         <!-- Links -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link to="/app">
-              <a class="nav-link" href="">
-                <i class="ni ni-tv-2 text-primary"></i> Dashboard
-              </a>
-            </router-link>
+            <a class="nav-link" @click="changeComponent('Dashboard')">
+              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+            </a>
           </li>
           <li class="nav-item">
-            <router-link to="">
-              <a class="nav-link" href="">
-                <i class="ni ni-watch-time text-primary"></i> Recent
-              </a>
-            </router-link>
+            <a class="nav-link" @click="changeComponent">
+              <i class="ni ni-watch-time text-primary"></i> Recent
+            </a>
           </li>
           <li class="nav-item">
-            <router-link to="">
-              <a class="nav-link" href="">
-                <i class="ni ni-single-copy-04 text-primary"></i> Shared
-              </a>
-            </router-link>
+            <a class="nav-link" @click="changeComponent">
+              <i class="ni ni-single-copy-04 text-primary"></i> Shared
+            </a>
           </li>
         </ul>
         <!-- Divider -->
@@ -140,7 +134,12 @@
 
 <script>
 export default {
-  name: "Footer"
+  name: "SideNav",
+  methods: {
+    changeComponent: function(component) {
+      this.$emit('changeComponent', component)
+    }
+  }
 };
 </script>
 
