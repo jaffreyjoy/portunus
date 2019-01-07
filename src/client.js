@@ -21,12 +21,15 @@ export default {
   setUserSession: function (name, username, email) {
     localStorage.name = name;
     localStorage.username = username;
-    localStorage.email = email;
+    localStorage.email = email
   },
 
   getUserSession: async function(username) {
-    socket.emit('setSession', username, (res) => {
-      this.setUserSession(res.name, res.username, res.email)
-    });
+    return new Promise(resolve => {
+      socket.emit('setSession', username, async (res) => {
+        await this.setUserSession(res.name, res.username, res.email);
+        resolve();
+      });
+    })
   }
 }
