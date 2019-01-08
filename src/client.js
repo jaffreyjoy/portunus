@@ -1,4 +1,5 @@
-var io = require('socket.io-client');
+const io = require('socket.io-client');
+const SocketIOFileUpload = require('socketio-file-upload');
 const socket = io.connect('http://localhost:3000');
 
 export default {
@@ -31,5 +32,9 @@ export default {
         resolve();
       });
     })
+  },
+
+  getUploader: async function() {
+    return new SocketIOFileUpload(socket)
   }
 }
