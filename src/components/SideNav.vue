@@ -72,7 +72,7 @@
         </form>
         <!-- Navigation -->
         <!-- Upload button -->
-        <button class="btn btn-icon btn-3 btn-primary btn-lg mt-3" type="button">
+        <button class="btn btn-icon btn-3 btn-primary btn-lg mt-3" type="button" data-toggle="modal" data-target="#uploadModal">
           <span class="btn-inner--icon"><i class="fa fa-file-upload"></i></span>
           <span class="btn-inner--text">Upload</span>
         </button>
@@ -101,17 +101,17 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" @click="changeComponent('Dashboard')">
-              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+              <i class="ni ni-tv-2 text-primary mt--1"></i> Dashboard
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" @click="changeComponent">
-              <i class="ni ni-watch-time text-primary"></i> Recent
+              <i class="ni ni-watch-time text-primary mt--1"></i> Recent
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" @click="changeComponent">
-              <i class="ni ni-single-copy-04 text-primary"></i> Shared
+              <i class="ni ni-single-copy-04 text-primary mt--1"></i> Shared
             </a>
           </li>
         </ul>
@@ -123,7 +123,7 @@
         <ul class="navbar-nav mb-md-3">
           <li class="nav-item">
             <a href="./examples/profile.html" class="nav-link">
-              <i class="ni ni-settings-gear-65"></i> Settings
+              <i class="ni ni-settings-gear-65 mt--1"></i> Settings
             </a>
           </li>
         </ul>

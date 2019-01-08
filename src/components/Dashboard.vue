@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- Recent -->
     <div class="header pb-8 pt-6 pt-md-7">
       <div class="container-fluid">
         <div class="header-body">
@@ -94,7 +95,7 @@
         </div>
       </div>
     </div>
-    <!-- Page content -->
+    <!-- Drive-->
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="col">
@@ -111,8 +112,8 @@
                 </div>
               </div>
             </div>
+            <!-- File Explorer -->
             <div class="table-responsive">
-              <!-- Projects table -->
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
@@ -161,11 +162,47 @@
         </div>
       </div>
     </div>
+    <!-- Upload Modal -->
+    <div class="modal fade" id="uploadModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header mt-2">
+            <h2 class="modal-title" id="uploadModalLabel">Upload Wizard</h2>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body mt--2">
+            <div id="uploadArea" class="bg-lighter dashed-border pb-5 pt-5 justify-center text-center">
+              <i class="fa fa-file-upload display-2 text-gray"></i><br/>
+              <input @change="onFileSelect" type="file" name="files[]" id="file" class="box__file" data-multiple-caption="{count} files selected" multiple />
+              <span id="uploadAreaText">
+                <label id="chooseFileText" for="file"><strong>Choose a file</strong></label> <span class="box__dragndrop"> or drag it here</span>
+              </span>
+            </div>
+          </div>
+          <div class="modal-footer mt--4">
+            <button type="button" class="btn btn-secondary btn" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary btn">Upload</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 export default {
-  name: "Dashboard"
+  name: "Dashboard",
+  methods: {
+    onFileSelect(e) {
+      console.log(e.target.files);
+      var reader = new FileReader();
+      reader.onload = (ev) => {
+        console.log(ev.target.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
 };
 </script>
 <style scoped>
@@ -174,5 +211,24 @@ export default {
 }
 .text-md {
   font-size: 0.95rem !important;
+}
+
+#uploadArea:hover{
+  background-color: var(--secondary) !important;
+}
+.dashed-border{
+  border: 3.5px dashed gray;
+  border-radius: 8px;
+}
+
+.box__file{
+  display: none;
+}
+#chooseFileText{
+  font-family: 'Metropolis Bold' !important;
+}
+#chooseFileText:hover{
+  text-decoration: underline !important;
+  cursor: pointer;
 }
 </style>
