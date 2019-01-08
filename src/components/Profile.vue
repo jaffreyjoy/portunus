@@ -5,42 +5,57 @@
         <div class="container mt--4 pb-5">
           <!-- Table -->
           <div class="row justify-content-center mt-5">
-            <div class="col-lg-6 col-md-8">
-              <div class="card bg-secondary shadow border-0">
-                <div class="card-body px-lg-5 py-lg-5">
-                  <form role="form">
-                    <div class="form-group">
-                      <div class="input-group input-group-alternative mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="ni ni-hat-3"></i>
-                          </span>
-                        </div>
-                        <input class="form-control" type="text" v-model="name" disabled>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="input-group input-group-alternative mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="ni ni-hat-3"></i>
-                          </span>
-                        </div>
-                        <input class="form-control" type="text" v-model="username" disabled>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="input-group input-group-alternative mb-3">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text">
-                            <i class="ni ni-hat-3"></i>
-                          </span>
-                        </div>
-                        <input class="form-control" type="text" v-model="email" disabled>
-                      </div>
-                    </div>
-                  </form>
+            <div class="card bg-secondary shadow">
+              <div class="card-header bg-white border-0">
+                <div class="row align-items-center">
+                  <div class="col-8">
+                    <h3 class="mb-0">My account</h3>
+                  </div>
                 </div>
+              </div>
+              <div class="card-body">
+                <form>
+                  <h6 class="heading-small text-muted mb-4">User information</h6>
+                  <div class="pl-lg-4">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-username">Name</label>
+                          <input
+                            type="text"
+                            id="input-username"
+                            class="form-control form-control-alternative"
+                            v-model="name"    
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-username">Username</label>
+                          <input
+                            type="text"
+                            id="input-username"
+                            class="form-control form-control-alternative"
+                            v-model="username"
+                          >
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label class="form-control-label" for="input-email">Email address</label>
+                          <input
+                            type="email"
+                            id="input-email"
+                            class="form-control form-control-alternative"
+                            v-model="email"
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
