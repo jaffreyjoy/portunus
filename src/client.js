@@ -1,6 +1,11 @@
 const io = require('socket.io-client');
 const SocketIOFileUpload = require('socketio-file-upload');
 const socket = io.connect('http://localhost:3000');
+const modalExport = require('./components/UploadModal');
+
+socket.on('progress', function(progress) {
+  modalExport.default.methods.updateProgress(progress);
+});
 
 export default {
   register: async function (user) {

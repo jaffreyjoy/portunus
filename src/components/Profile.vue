@@ -62,11 +62,17 @@
         </div>
       </div>
     </div>
+    <!-- Upload Modal -->
+    <UploadModal />
   </div>
 </template>
 <script>
+import UploadModal from './UploadModal';
 export default {
   name: "Profile",
+  components: {
+    UploadModal
+  },
   data() {
     return {
       name: localStorage.name,

@@ -31,11 +31,16 @@ io.on('connection', function(socket) {
       uploader.dir = `./src/backend/Uploads/${event.file.meta.owner}`;
     });
 
+    uploader.on("progress", event => {
+      perc = Math.round(event.file.bytesLoaded / event.file.size * 100);
+      socket.emit('progress', perc);
+    });
+
     uploader.on("saved", async function(event) {
       const dateTime = getDateTime();
       event.file.date = dateTime.date;
       event.file.time = dateTime.time;
-      await file.saveDetails(event.file)
+      await file.saveDetails(event.file);
     });
 
     uploader.on("error", function(event) {

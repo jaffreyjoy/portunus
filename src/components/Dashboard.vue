@@ -163,59 +163,15 @@
       </div>
     </div>
     <!-- Upload Modal -->
-    <div class="modal fade" id="uploadModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header mt-2">
-            <h2 class="modal-title" id="uploadModalLabel">Upload Wizard</h2>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body mt--2">
-            <div id="uploadArea" class="bg-lighter dashed-border pb-5 pt-5 justify-center text-center">
-              <i class="fa fa-file-upload display-2 text-gray"></i><br/>
-              <input @change="onFileSelect" type="file" name="file" id="file" class="box__file" />
-              <span id="uploadAreaText">
-                <div v-if="!filename">
-                  <label id="chooseFileText" for="file"><strong>Choose a file</strong></label><span> or drag it here</span>
-                </div>
-                <div v-if="filename">
-                  <span>{{ this.filename }}</span>
-                </div>
-              </span>
-            </div>
-          </div>
-          <div class="modal-footer mt--4">
-            <button type="button" class="btn btn-secondary btn" data-dismiss="modal">Close</button>
-            <button id="upload" type="button" class="btn btn-primary btn">Upload</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <UploadModal />
   </div>
 </template>
 <script>
-import client from '../client.js';
+import UploadModal from './UploadModal';
 export default {
   name: "Dashboard",
-  data() {
-    return {
-      filename: null
-    }
-  },
-  async created() {
-    const uploader = await client.getUploader();
-    uploader.addEventListener("start", event => {
-      this.filename = event.file.name;
-      event.file.meta.owner = localStorage.username;
-    });
-    uploader.listenOnSubmit(document.getElementById("upload"), document.getElementById("file"));
-  },
-  methods: {
-    onFileSelect: function(e) {
-      this.filename = e.target.files[0].name;
-    }
+  components: {
+    UploadModal
   }
 };
 </script>
@@ -225,24 +181,5 @@ export default {
 }
 .text-md {
   font-size: 0.95rem !important;
-}
-
-#uploadArea:hover{
-  background-color: var(--secondary) !important;
-}
-.dashed-border{
-  border: 3.5px dashed gray;
-  border-radius: 8px;
-}
-
-.box__file{
-  display: none;
-}
-#chooseFileText{
-  font-family: 'Metropolis Bold' !important;
-}
-#chooseFileText:hover{
-  text-decoration: underline !important;
-  cursor: pointer;
 }
 </style>
