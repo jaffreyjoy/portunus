@@ -69,7 +69,7 @@
         "icon": "fa-file-image",
         "other": ""
     },
-    ".mp4": {
+    "mp4": {
         "color": "text-indigo",
         "icon": "fa-file-video",
         "other": ""
