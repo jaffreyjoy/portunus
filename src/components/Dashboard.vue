@@ -11,86 +11,28 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <span class="h2 font-weight-bold mb-0">PDF</span>
-                      <h5 class="card-title text-uppercase text-muted mb-0">12 MB</h5>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-red text-white rounded-circle shadow">
-                        <i class="fa fa-file-pdf"></i>
+            <template v-for="file in files.slice(0,4)">
+              <div :key="file._id" class="col-xl-3 col-lg-6">
+                <div class="card card-stats mb-4 mb-xl-0">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <span class="h3 font-weight-bold mb-0">{{ file.name | limitLength }}</span>
+                        <h5 class="card-title text-uppercase text-muted mb-0">{{ getReadableFileSize(file.size) }}</h5>
+                      </div>
+                      <div class="col-auto">
+                        <div :class="getBg(file.color)" class="icon icon-shape text-white rounded-circle shadow">
+                          <i :class="file.icon" class="fa"></i>
+                        </div>
                       </div>
                     </div>
+                    <p class="mt-3 mb-0 text-muted text-sm">
+                      <span class="text-nowrap">Last access: {{ file.date }}</span>
+                    </p>
                   </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-nowrap">Last access: 5/1/19</span>
-                  </p>
                 </div>
               </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <span class="h2 font-weight-bold mb-0">TXT</span>
-                      <h5 class="card-title text-uppercase text-muted mb-0">4 KB</h5>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-light text-white rounded-circle shadow">
-                        <i class="fa fa-file-alt"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-nowrap">Last access: 3/1/19</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <span class="h2 font-weight-bold mb-0">XLXS</span>
-                      <h5 class="card-title text-uppercase text-muted mb-0">60 KB</h5>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-green text-white rounded-circle shadow">
-                        <i class="fa fa-file-excel"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-nowrap">Last access: 3/1/19</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-6">
-              <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <span class="h2 font-weight-bold mb-0">DOCX</span>
-                      <h5 class="card-title text-uppercase text-muted mb-0">2.5 MB</h5>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-blue text-white rounded-circle shadow">
-                        <i class="fa fa-file-word"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-nowrap">Last access: 1/1/19</span>
-                  </p>
-                </div>
-              </div>
-            </div>
+            </template>
           </div>
         </div>
       </div>
@@ -166,6 +108,11 @@ export default {
       let userFiles = await client.getUserFiles(localStorage.username);
       this.files = userFiles;
     },
+    getBg(str) {
+      console.log(str)
+      console.log(str.indexOf('-'))
+      return 'bg' + str.slice(str.indexOf('-'), str.length)
+    },
     getReadableFileSize(size) {
       if(size < 1024)
         return `${size} B`;
@@ -186,7 +133,14 @@ export default {
       else
         return str;
     }
-  }
+  },
+  filters: {
+    limitLength: function (str) {
+      if(str.length > 10)
+        return str.substring(0,10) + "...";
+      else return str;
+    }
+}
 };
 </script>
 <style scoped>

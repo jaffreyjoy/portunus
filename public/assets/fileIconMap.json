@@ -120,62 +120,62 @@
         "other": ""
     },
     "html": {
-        "color": "text-text-gray-dark",
+        "color": "text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "css": {
-        "color": "text-text-gray-dark",
+        "color": "text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "js": {
-        "color": "text-text-gray-dark",
+        "color": "text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "ts": {
-        "color": "text-text-gray-dark",
+        "color": "text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "jsx": {
-        "color": "text-text-gray-dark",
+        "color": "text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "vue": {
-        "color": "text-text-gray-dark",
+        "color": "text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "json": {
-        "color": "text-text-gray-dark",
+        "color": "text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "py": {
-        "color": "text-text-gray-dark",
+        "color": "text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "c": {
-        "color": "text-text-gray-dark",
+        "color": "text-gray-dark",
         "icon": "fa-file-code",
-        "other": "text-text-gray-dark"
+        "other": ""
     },
     "cpp": {
-        "color": "text-text-gray-dark",
+        "color": "text-gray-dark",
         "icon": "fa-file-code",
-        "other": "text-text-gray-dark"
+        "other": ""
     },
     "rst": {
-        "color": "text-text-gray-dark",
+        "color": "text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "java": {
-        "color": "text-text-gray-dark",
+        "color": "text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
