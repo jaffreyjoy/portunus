@@ -11,7 +11,7 @@
             </div>
           </div>
           <div class="row">
-            <template v-for="file in files.reverse().slice(0,4)">
+            <template v-for="file in recentFiles">
               <div :key="file._id" class="col-xl-3 col-lg-6">
                 <div class="card card-stats mb-4 mb-xl-0">
                   <div class="card-body">
@@ -96,7 +96,8 @@ export default {
   },
   data: function() {
     return {
-      files : null
+      files : null,
+      recentFiles: null,
     }
   },
   async created() {
@@ -106,7 +107,8 @@ export default {
     async setFiles() {
       console.log('setFiles')
       let userFiles = await client.getUserFiles(localStorage.username);
-      this.files = userFiles;
+      this.recentFiles = userFiles.reverse().slice(0,4);
+      this.files = userFiles.reverse();
     },
     getBg(str) {
       console.log(str)
