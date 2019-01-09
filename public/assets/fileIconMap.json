@@ -26,7 +26,7 @@
     },
     "csv": {
         "color": "text-green",
-        "icon": "fa-file-csv",
+        "icon": "fa-file-excel",
         "other": ""
     },
     "xls": {

@@ -145,9 +145,16 @@ export default {
   async mounted() {
     this.$root.$emit('getUsedSpace');
     let usedSpaceBytes = localStorage.usedSpaceBytes;
-    console.log(usedSpaceBytes);
+    // console.log(usedSpaceBytes);
     this.usedSpace = (usedSpaceBytes / (this.totalSpace * 1073741824)).toFixed(4);
     this.spacePercent = `width:${(this.usedSpace / this.totalSpace) * 100}%`;
+    // this.$root.$on('setUsedSpace', (usedSpaceBytes) => {
+    //   console.log('setUsedSpace');
+    //   // let usedSpaceBytes = localStorage.usedSpaceBytes;
+    //   console.log(usedSpaceBytes);
+    //   this.usedSpace = (usedSpaceBytes / (this.totalSpace * 1073741824)).toFixed(4);
+    //   this.spacePercent = `width:${(this.usedSpace / this.totalSpace) * 100}%`;
+    // })
   },
   methods: {
     changeComponent: function(component) {
