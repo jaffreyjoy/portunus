@@ -11,7 +11,7 @@
             </div>
           </div>
           <div class="row">
-            <template v-for="file in files.slice(0,4)">
+            <template v-for="file in files.reverse().slice(0,4)">
               <div :key="file._id" class="col-xl-3 col-lg-6">
                 <div class="card card-stats mb-4 mb-xl-0">
                   <div class="card-body">
