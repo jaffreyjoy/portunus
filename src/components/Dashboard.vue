@@ -197,6 +197,7 @@
 </template>
 <script>
 import client from '../client.js';
+import _ from '../misc.js';
 export default {
   name: "Dashboard",
   data() {
@@ -209,6 +210,7 @@ export default {
     uploader.addEventListener("start", event => {
       this.filename = event.file.name;
       event.file.meta.owner = localStorage.username;
+      event.file.meta.type = _.getFileExtension(event.file.name);
     });
     uploader.listenOnSubmit(document.getElementById("upload"), document.getElementById("file"));
   },
