@@ -85,14 +85,14 @@
         <div class="progress-wrapper">
           <div class="progress-info mb-3 mt-3">
             <div class="progress-label">
-              <span>Space Occupied</span>
+              <span>Space Used</span>
             </div>
             <div class="progress-percentage">
-              <span>1.5 of 5 GB</span>
+              <span>{{usedSpace}} of {{totalSpace}} GB</span>
             </div>
           </div>
           <div class="progress">
-            <div class="progress-bar bg-default" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;"></div>
+            <div class="progress-bar bg-default" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" :style="spacePercent"></div>
           </div>
         </div>
         <!-- Divider -->
@@ -135,6 +135,20 @@
 <script>
 export default {
   name: "SideNav",
+  data: function() {
+    return {
+      usedSpace: 0.001,
+      totalSpace: 1,
+      spacePercent: "width:10%"
+    }
+  },
+  async mounted() {
+    this.$root.$emit('getUsedSpace');
+    let usedSpaceBytes = localStorage.usedSpaceBytes;
+    console.log(usedSpaceBytes);
+    this.usedSpace = (usedSpaceBytes / (this.totalSpace * 1073741824)).toFixed(4);
+    this.spacePercent = `width:${(this.usedSpace / this.totalSpace) * 100}%`;
+  },
   methods: {
     changeComponent: function(component) {
       this.$emit('changeComponent', component)

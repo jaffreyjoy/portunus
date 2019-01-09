@@ -103,6 +103,12 @@ export default {
   async created() {
     await this.setFiles();
   },
+  async mounted() {
+    this.$root.$on('getUsedSpace', () => {
+      console.log('getUsedSpace');
+      localStorage.usedSpaceBytes =  this.files.reduce((acc,el)=>acc+el.size,0);
+    })
+  },
   methods: {
     async setFiles() {
       console.log('setFiles')
@@ -111,8 +117,6 @@ export default {
       this.files = userFiles.reverse();
     },
     getBg(str) {
-      console.log(str)
-      console.log(str.indexOf('-'))
       return 'bg' + str.slice(str.indexOf('-'), str.length)
     },
     getReadableFileSize(size) {
@@ -142,7 +146,7 @@ export default {
         return str.substring(0,10) + "...";
       else return str;
     }
-}
+  }
 };
 </script>
 <style scoped>
