@@ -3,6 +3,7 @@ module.exports = {
     const file = {
       name: fileDetail.name,
       owner: fileDetail.meta.owner,
+      type: fileDetail.meta.type,
       size: fileDetail.size,
       date: fileDetail.date,
       time: fileDetail.time

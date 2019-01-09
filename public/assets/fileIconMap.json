@@ -1,0 +1,212 @@
+{
+    "folder": {
+        "color": "",
+        "icon": "fa-folder",
+        "other": ""
+    },
+    "pdf": {
+        "color": "",
+        "icon": "fa-file-pdf",
+        "other": ""
+    },
+    "docx": {
+        "color": "",
+        "icon": "fa-file-word",
+        "other": ""
+    },
+    "doc": {
+        "color": "",
+        "icon": "fa-file-word",
+        "other": ""
+    },
+    "odt": {
+        "color": "",
+        "icon": "fa-file-word",
+        "other": ""
+    },
+    "csv": {
+        "color": "",
+        "icon": "fa-file-csv",
+        "other": ""
+    },
+    "xls": {
+        "color": "",
+        "icon": "fa-file-excel",
+        "other": ""
+    },
+    "xlxs": {
+        "color": "",
+        "icon": "fa-file-excel",
+        "other": ""
+    },
+    "ppt": {
+        "color": "",
+        "icon": "fa-file-powerpoint",
+        "other": ""
+    },
+    "pptx": {
+        "color":"",
+        "icon": "fa-file-powerpoint",
+        "other": ""
+    },
+    "png": {
+        "color": "",
+        "icon": "fa-file-image",
+        "other": ""
+    },
+    "jpg": {
+        "color": "",
+        "icon": "fa-file-image",
+        "other": ""
+    },
+    "jpeg": {
+        "color": "",
+        "icon": "fa-file-image",
+        "other": ""
+    },
+    "bmp": {
+        "color": "",
+        "icon": "fa-file-image",
+        "other": ""
+    },
+    ".mp4": {
+        "color": "",
+        "icon": "fa-file-video",
+        "other": ""
+    },
+    "avi": {
+        "color": "",
+        "icon": "fa-file-video",
+        "other": ""
+    },
+    "flv": {
+        "color": "",
+        "icon": "fa-file-video",
+        "other": ""
+    },
+    "wmv": {
+        "color": "",
+        "icon": "fa-file-video",
+        "other": ""
+    },
+    "mov": {
+        "color": "",
+        "icon": "fa-file-video",
+        "other": ""
+    },
+    "mp3": {
+        "color": "",
+        "icon": "fa-file-audio",
+        "other": ""
+    },
+    "wav": {
+        "color": "",
+        "icon": "fa-file-audio",
+        "other": ""
+    },
+    "m4a": {
+        "color": "",
+        "icon": "fa-file-audio",
+        "other": ""
+    },
+    "txt": {
+        "color": "",
+        "icon": "fa-file-alt",
+        "other": ""
+    },
+    "html": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "css": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "js": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "ts": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "jsx": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "vue": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "json": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "py": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "c": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "cpp": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "rst": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "java": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "asm": {
+        "color":  "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "sh": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "bat": {
+        "color": "",
+        "icon": "fa-file-code",
+        "other": ""
+    },
+    "zip": {
+        "color": "",
+        "icon": "fa-file-archive",
+        "other": ""
+    },
+    "rar": {
+        "color": "",
+        "icon": "fa-file-archive",
+        "other": ""
+    },
+    "7zip": {
+        "color": "",
+        "icon": "fa-file-archive",
+        "other": ""
+    },
+    "other": {
+        "color": "",
+        "icon": "fa-file",
+        "other": ""
+    }
+}
