@@ -113,7 +113,7 @@
               </div>
             </div>
             <!-- File Explorer -->
-            <div class="table-responsive">
+            <div class="table-responsive mb-2">
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
@@ -124,9 +124,9 @@
                 </thead>
                 <tbody>
                   <template v-for="file in files">
-                    <tr :key="file.id">
+                    <tr :key="file._id">
                       <th scope="row">
-                        <i class="fas fa-file-alt text-lg text-gray mr-3"></i>
+                        <i :class="[file.color,file.icon]" class="fas text-lg mr-3"></i>
                         <span class="text-md">{{ file.name }}</span>
                       </th>
                       <td>{{ file.date }}</td>
@@ -158,11 +158,14 @@ export default {
     }
   },
   async created() {
-    let userFiles = await client.getUserFiles(localStorage.username);
-    this.files = userFiles;
-    // console.log(`view: ${userFiles}`);
+    await this.setFiles();
   },
   methods: {
+    async setFiles() {
+      console.log('setFiles')
+      let userFiles = await client.getUserFiles(localStorage.username);
+      this.files = userFiles;
+    },
     getReadableFileSize(size) {
       if(size < 1024)
         return `${size} B`;

@@ -42,6 +42,7 @@ io.on('connection', function(socket) {
       event.file.date = dateTime.date;
       event.file.time = dateTime.time;
       await file.saveDetails(event.file);
+      await socket.emit("updateFiles");
     });
 
     uploader.on("error", function(event) {

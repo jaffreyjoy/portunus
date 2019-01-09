@@ -1,211 +1,216 @@
 {
     "folder": {
-        "color": "",
+        "color": "text-light",
         "icon": "fa-folder",
         "other": ""
     },
     "pdf": {
-        "color": "",
+        "color": "text-red",
         "icon": "fa-file-pdf",
         "other": ""
     },
     "docx": {
-        "color": "",
+        "color": "text-blue",
         "icon": "fa-file-word",
         "other": ""
     },
     "doc": {
-        "color": "",
+        "color": "text-blue",
         "icon": "fa-file-word",
         "other": ""
     },
     "odt": {
-        "color": "",
+        "color": "text-blue",
         "icon": "fa-file-word",
         "other": ""
     },
     "csv": {
-        "color": "",
+        "color": "text-green",
         "icon": "fa-file-csv",
         "other": ""
     },
     "xls": {
-        "color": "",
+        "color": "text-green",
         "icon": "fa-file-excel",
         "other": ""
     },
     "xlxs": {
-        "color": "",
+        "color": "text-green",
         "icon": "fa-file-excel",
         "other": ""
     },
     "ppt": {
-        "color": "",
+        "color": "text-orange",
         "icon": "fa-file-powerpoint",
         "other": ""
     },
     "pptx": {
-        "color":"",
+        "color":"text-orange",
         "icon": "fa-file-powerpoint",
         "other": ""
     },
     "png": {
-        "color": "",
+        "color": "text-purple",
         "icon": "fa-file-image",
         "other": ""
     },
     "jpg": {
-        "color": "",
+        "color": "text-purple",
         "icon": "fa-file-image",
         "other": ""
     },
     "jpeg": {
-        "color": "",
+        "color": "text-purple",
         "icon": "fa-file-image",
         "other": ""
     },
     "bmp": {
-        "color": "",
+        "color": "text-purple",
         "icon": "fa-file-image",
         "other": ""
     },
     ".mp4": {
-        "color": "",
+        "color": "text-indigo",
         "icon": "fa-file-video",
         "other": ""
     },
     "avi": {
-        "color": "",
+        "color": "text-indigo",
         "icon": "fa-file-video",
         "other": ""
     },
     "flv": {
-        "color": "",
+        "color": "text-indigo",
         "icon": "fa-file-video",
         "other": ""
     },
     "wmv": {
-        "color": "",
+        "color": "text-indigo",
         "icon": "fa-file-video",
         "other": ""
     },
     "mov": {
-        "color": "",
+        "color": "text-indigo",
         "icon": "fa-file-video",
         "other": ""
     },
     "mp3": {
-        "color": "",
+        "color": "text-info",
         "icon": "fa-file-audio",
         "other": ""
     },
     "wav": {
-        "color": "",
+        "color": "text-info",
         "icon": "fa-file-audio",
         "other": ""
     },
     "m4a": {
-        "color": "",
+        "color": "text-info",
+        "icon": "fa-file-audio",
+        "other": ""
+    },
+    "ogg": {
+        "color": "text-info",
         "icon": "fa-file-audio",
         "other": ""
     },
     "txt": {
-        "color": "",
+        "color": "text-gray",
         "icon": "fa-file-alt",
         "other": ""
     },
     "html": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "css": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "js": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "ts": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "jsx": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "vue": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "json": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "py": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "c": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
-        "other": ""
+        "other": "text-text-gray-dark"
     },
     "cpp": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
-        "other": ""
+        "other": "text-text-gray-dark"
     },
     "rst": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "java": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "asm": {
-        "color":  "",
+        "color":  "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "sh": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "bat": {
-        "color": "",
+        "color": "text-text-gray-dark",
         "icon": "fa-file-code",
         "other": ""
     },
     "zip": {
-        "color": "",
+        "color": "text-gray",
         "icon": "fa-file-archive",
         "other": ""
     },
     "rar": {
-        "color": "",
+        "color": "text-gray",
         "icon": "fa-file-archive",
         "other": ""
     },
     "7zip": {
-        "color": "",
+        "color": "text-gray",
         "icon": "fa-file-archive",
         "other": ""
     },
     "other": {
-        "color": "",
+        "color": "text-gray",
         "icon": "fa-file",
         "other": ""
     }
