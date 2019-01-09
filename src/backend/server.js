@@ -8,6 +8,7 @@ const { connectDb } = require('./database');
 const auth = require('./auth');
 const getUserDetails = require('./session');
 const file = require('./file');
+const exp = require('./explorer');
 
 function format(value) {
   return ("0" + value).slice(-2);
@@ -62,6 +63,13 @@ io.on('connection', function(socket) {
 
     socket.on('setSession', async function(username, respond) {
         const res = await getUserDetails(username);
+        respond(res);
+    });
+
+    socket.on('getUserFiles', async function(username, respond) {
+        const res = await exp.getUserFiles(username);
+        console.log(`server : `)
+        console.log(res)
         respond(res);
     });
 });

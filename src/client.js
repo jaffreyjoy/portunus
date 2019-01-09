@@ -39,6 +39,16 @@ export default {
     })
   },
 
+  getUserFiles: async function(username) {
+    return new Promise(resolve => {
+      socket.emit('getUserFiles', username, async (res) => {
+        console.log(`client : `)
+        console.log(res)
+        resolve(res);
+      });
+    })
+  },
+
   getUploader: async function() {
     return new SocketIOFileUpload(socket)
   }

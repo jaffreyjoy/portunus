@@ -123,38 +123,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">
-                      <i class="fas fa-folder text-lg text-dark mr-3"></i>
-                      <span class="text-md">File</span>
-                    </th>
-                    <td>5/1/19 3:00 PM</td>
-                    <td>10 MB</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <i class="fas fa-file-pdf text-lg text-red mr-3"></i>
-                      <span class="text-md">Pdf</span>
-                    </th>
-                    <td>5/1/19 3:00 PM</td>
-                    <td>10 MB</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <i class="fas fa-file-image text-lg text-orange mr-3"></i>
-                      <span class="text-md">Image</span>
-                    </th>
-                    <td>5/1/19 3:00 PM</td>
-                    <td>10 MB</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      <i class="fas fa-file-word text-lg text-blue mr-3"></i>
-                      <span class="text-md">Doc</span>
-                    </th>
-                    <td>5/1/19 3:00 PM</td>
-                    <td>10 MB</td>
-                  </tr>
+                  <template v-for="file in files">
+                    <tr :key="file.id">
+                      <th scope="row">
+                        <i class="fas fa-file-alt text-lg text-gray mr-3"></i>
+                        <span class="text-md">{{ file.name }}</span>
+                      </th>
+                      <td>{{ file.date }}</td>
+                      <td>{{ getReadableFileSize(file.size) }}</td>
+                    </tr>
+                  </template>
                 </tbody>
               </table>
             </div>
@@ -168,10 +146,43 @@
 </template>
 <script>
 import UploadModal from './UploadModal';
+import client from "../client.js";
 export default {
   name: "Dashboard",
   components: {
     UploadModal
+  },
+  data: function() {
+    return {
+      files : null
+    }
+  },
+  async created() {
+    let userFiles = await client.getUserFiles(localStorage.username);
+    this.files = userFiles;
+    // console.log(`view: ${userFiles}`);
+  },
+  methods: {
+    getReadableFileSize(size) {
+      if(size < 1024)
+        return `${size} B`;
+      else if(size >= 1024 && size < 1048576)
+        return `${this.limitLength(size/1024)} KB`;
+      else if(size >= 1048576 && size < 1073741824)
+        return `${this.limitLength(size/1048576)} MB`;
+      else
+        return `${this.limitLength(size/1073741824)} GB`;
+    },
+    limitLength(value, limit=2) {
+      var str = value.toString();
+      var pointInd = str.indexOf('.');
+      if(pointInd !== -1)
+        return str.substring(0,
+          pointInd + Math.min(limit, str.length-pointInd) + 1
+        );
+      else
+        return str;
+    }
   }
 };
 </script>
