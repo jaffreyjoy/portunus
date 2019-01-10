@@ -1,11 +1,11 @@
 <template>
   <div>
-    <SideNav @changeComponent="changeComponent($event)" />
+    <SideNav :usedSpace="usedSpace" :spacePercent="spacePercent" @changeComponent="changeComponent($event)" />
     <!-- Main content -->
     <div class="main-content">
       <TopBar :topBarTitle="currentComponent" @changeComponent="changeComponent($event)" />
       <!-- Header -->
-      <component :is="currentComponent" />
+      <component :is="currentComponent" @setUsedSpace="setUsedSpace($event)" />
       <!-- Footer -->
       <Footer />
     </div>
@@ -30,12 +30,19 @@ export default {
   },
   data() {
     return {
-      currentComponent: 'Dashboard'
+      currentComponent: 'Dashboard',
+      usedSpace: 0.001,
+      totalSpace: 1,
+      spacePercent: "width:10%"
     }
   },
   methods: {
     changeComponent: function(component) {
       this.currentComponent = component;
+    },
+    setUsedSpace: function(usedBytes){
+      this.usedSpace = (usedBytes / (this.totalSpace * 1073741824)).toFixed(4);
+      this.spacePercent = `width:${(this.usedSpace / this.totalSpace) * 100}%`;
     }
   },
 };

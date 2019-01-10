@@ -89,6 +89,7 @@
 <script>
 import UploadModal from './UploadModal';
 import client from "../client.js";
+let that = null;
 export default {
   name: "Dashboard",
   components: {
@@ -101,6 +102,7 @@ export default {
     }
   },
   async created() {
+    that = this;
     await this.setFiles();
   },
   async mounted() {
@@ -113,8 +115,11 @@ export default {
     async setFiles() {
       console.log('setFiles')
       let userFiles = await client.getUserFiles(localStorage.username);
-      this.recentFiles = userFiles.reverse().slice(0,4);
-      this.files = userFiles.reverse();
+      that.recentFiles = userFiles.reverse().slice(0,4);
+      that.files = userFiles.reverse();
+      that.$emit('setUsedSpace',
+        that.files.reduce((acc,el)=>acc+el.size,0)
+      )
     },
     getBg(str) {
       return 'bg' + str.slice(str.indexOf('-'), str.length)

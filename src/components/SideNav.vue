@@ -88,11 +88,11 @@
               <span>Space Used</span>
             </div>
             <div class="progress-percentage">
-              <span>{{usedSpace}} of {{totalSpace}} GB</span>
+              <span>{{this.usedSpace}} of {{this.totalSpace}} GB</span>
             </div>
           </div>
           <div class="progress">
-            <div class="progress-bar bg-default" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" :style="spacePercent"></div>
+            <div class="progress-bar bg-default" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" :style="this.spacePercent"></div>
           </div>
         </div>
         <!-- Divider -->
@@ -135,26 +135,13 @@
 <script>
 export default {
   name: "SideNav",
+  props: ["usedSpace", "spacePercent"],
   data: function() {
     return {
-      usedSpace: 0.001,
       totalSpace: 1,
-      spacePercent: "width:10%"
+      // usedSpace: 0.001,
+      // spacePercent: "width:10%"
     }
-  },
-  async mounted() {
-    this.$root.$emit('getUsedSpace');
-    let usedSpaceBytes = localStorage.usedSpaceBytes;
-    // console.log(usedSpaceBytes);
-    this.usedSpace = (usedSpaceBytes / (this.totalSpace * 1073741824)).toFixed(4);
-    this.spacePercent = `width:${(this.usedSpace / this.totalSpace) * 100}%`;
-    // this.$root.$on('setUsedSpace', (usedSpaceBytes) => {
-    //   console.log('setUsedSpace');
-    //   // let usedSpaceBytes = localStorage.usedSpaceBytes;
-    //   console.log(usedSpaceBytes);
-    //   this.usedSpace = (usedSpaceBytes / (this.totalSpace * 1073741824)).toFixed(4);
-    //   this.spacePercent = `width:${(this.usedSpace / this.totalSpace) * 100}%`;
-    // })
   },
   methods: {
     changeComponent: function(component) {
