@@ -12,7 +12,7 @@
           </div>
           <div class="row">
             <template v-for="file in recentFiles">
-              <div :key="file._id" class="col-xl-3 col-lg-6">
+              <div @click="downloadFile(file.name)" :key="file._id" class="col-xl-3 col-lg-6">
                 <div class="card card-stats mb-4 mb-xl-0">
                   <div class="card-body">
                     <div class="row">
@@ -69,7 +69,7 @@
                     <tr :key="file._id">
                       <th scope="row">
                         <i :class="[file.color,file.icon]" class="fas text-lg mr-3"></i>
-                        <span class="text-md">{{ file.name }}</span>
+                        <span @click="downloadFile(file.name)" class="text-md">{{ file.name }}</span>
                       </th>
                       <td>{{ file.date }}</td>
                       <td>{{ getReadableFileSize(file.size) }}</td>
@@ -143,6 +143,9 @@ export default {
         );
       else
         return str;
+    },
+    downloadFile(filename) {
+      location.href=`http://localhost:3000/download/${localStorage.username}/${filename}`;
     }
   },
   filters: {
