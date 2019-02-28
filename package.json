@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "app": "(start yarn start && start yarn serve) || (yarn start & yarn serve)",
-    "start": "node src/backend/server.js",
+    "start": "node server/server.js",
     "serve": "vue-cli-service serve",
+    "process": "node process/app.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },

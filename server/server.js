@@ -29,7 +29,7 @@ io.on('connection', function (socket) {
   uploader.listen(socket);
 
   uploader.on("start", function (event) {
-    uploader.dir = `./src/backend/Uploads/${event.file.meta.owner}`;
+    uploader.dir = `./server/Uploads/${event.file.meta.owner}`;
   });
 
   uploader.on("progress", event => {
@@ -52,7 +52,7 @@ io.on('connection', function (socket) {
   socket.on('register', async function (user, respond) {
     const res = await auth.register(user);
     if (res === 1) {
-      fs.mkdirSync(`./src/backend/Uploads/${user.username}`);
+      fs.mkdirSync(`./server/Uploads/${user.username}`);
     }
     respond(res);
   });
@@ -79,7 +79,7 @@ app.get('/download/:username/:file', (req, res) => {
   var username = req.params.username;
   var file = req.params.file;
   console.log(username, file);
-  res.download(`./src/backend/Uploads/${username}/${file}`, file);
+  res.download(`./server/Uploads/${username}/${file}`, file);
 });
 
 connectDb(function () {

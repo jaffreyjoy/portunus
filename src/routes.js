@@ -1,5 +1,6 @@
 import Home from './pages/Home.vue'
 import Register from './pages/Register.vue'
+import Record from './pages/Record.vue'
 import Login from './pages/Login.vue'
 import Terms from './pages/Terms.vue'
 import Drive from './pages/Drive.vue'
@@ -19,6 +20,11 @@ export default [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/record',
+    name: 'Record',
+    component: Record
   },
   {
     path: '/login',

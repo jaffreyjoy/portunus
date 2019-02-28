@@ -108,7 +108,7 @@
                   </div>
                 </div>
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary mt-4" @click="register">Create account</button>
+                  <button type="button" class="btn btn-primary mt-4" @click="register">Continue</button>
                 </div>
               </form>
             </div>
@@ -219,7 +219,7 @@ export default {
         this.showAlert(message[res]);
         if (res === 1) {
           client.setUserSession(this.name, this.username, this.email);
-          this.$router.push('/app');
+          this.$router.push('/record');
         }
       }
     },
