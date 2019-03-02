@@ -26,7 +26,7 @@ class setInterval :
         self.stopEvent.set()
 
 # start action every 0.6s
-inter=setInterval(0.1,action)
+inter=setInterval(0.001,action)
 
 # will stop interval in 5s
 t=threading.Timer(5,inter.cancel)
