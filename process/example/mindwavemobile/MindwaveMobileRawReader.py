@@ -10,7 +10,7 @@ class MindwaveMobileRawReader:
         self._bufferPosition = 0;
         self._isConnected = False;
         self._mindwaveMobileAddress = address
-        
+
     def connectToMindWaveMobile(self):
         # First discover mindwave mobile address, then connect.
         # Headset address of my headset was'9C:B7:0D:72:CD:02';
@@ -18,19 +18,19 @@ class MindwaveMobileRawReader:
         # now discovering address because of https://github.com/robintibor/python-mindwave-mobile/issues/4
         if (self._mindwaveMobileAddress is None):
             self._mindwaveMobileAddress = self._findMindwaveMobileAddress()
-        if (self._mindwaveMobileAddress is not None):            
-            print ("Discovered Mindwave Mobile...")
+        if (self._mindwaveMobileAddress is not None):
+            # print ("Discovered Mindwave Mobile...")
             self._connectToAddress(self._mindwaveMobileAddress)
         else:
             self._printErrorDiscoveryMessage()
-        
+
     def _findMindwaveMobileAddress(self):
         nearby_devices = bluetooth.discover_devices(lookup_names = True)
         for address, name in nearby_devices:
             if (name == "MindWave Mobile"):
                 return address
         return None
-        
+
     def _connectToAddress(self, mindwaveMobileAddress):
         self.mindwaveMobileSocket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
         while (not self._isConnected):
@@ -40,8 +40,8 @@ class MindwaveMobileRawReader:
                 self._isConnected = True
             except bluetooth.btcommon.BluetoothError as error:
                 print("Could not connect: ", error, "; Retrying in 5s...")
-                time.sleep(5) 
-           
+                time.sleep(5)
+
 
     def isConnected(self):
         return self._isConnected
@@ -55,7 +55,7 @@ class MindwaveMobileRawReader:
     def _readMoreBytesIntoBuffer(self, amountOfBytes):
         newBytes = self._readBytesFromMindwaveMobile(amountOfBytes)
         self._buffer += newBytes
-    
+
     def _readBytesFromMindwaveMobile(self, amountOfBytes):
         missingBytes = amountOfBytes
         receivedBytes = ""
@@ -73,11 +73,11 @@ class MindwaveMobileRawReader:
     def getByte(self):
         self._ensureMoreBytesCanBeRead(100);
         return self._getNextByte();
-    
+
     def  _ensureMoreBytesCanBeRead(self, amountOfBytes):
         if (self._bufferSize() <= self._bufferPosition + amountOfBytes):
             self._readMoreBytesIntoBuffer(amountOfBytes)
-    
+
     def _getNextByte(self):
         nextByte = ord(self._buffer[self._bufferPosition]);
         self._bufferPosition += 1;
@@ -86,17 +86,17 @@ class MindwaveMobileRawReader:
     def getBytes(self, amountOfBytes):
         self._ensureMoreBytesCanBeRead(amountOfBytes);
         return self._getNextBytes(amountOfBytes);
-    
+
     def _getNextBytes(self, amountOfBytes):
         nextBytes = list(map(ord, self._buffer[self._bufferPosition: self._bufferPosition + amountOfBytes]))
         self._bufferPosition += amountOfBytes
         return nextBytes
-    
+
     def clearAlreadyReadBuffer(self):
         self._buffer = self._buffer[self._bufferPosition : ]
         self._bufferPosition = 0;
-    
+
     def _bufferSize(self):
         return len(self._buffer);
-    
-#------------------------------------------------------------------------------ 
+
+#------------------------------------------------------------------------------
