@@ -29,5 +29,5 @@ class setInterval :
 inter=setInterval(0.001,action)
 
 # will stop interval in 5s
-t=threading.Timer(5,inter.cancel)
+t=threading.Timer(20,inter.cancel)
 t.start()

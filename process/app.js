@@ -6,38 +6,54 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 const os = require('os');
 
+const path = './process/csv_writer.py';//example/read_mindwave_mobile.py';
+const recorder = spawn('python', [path]);
+
 io.on('connection', function (socket) {
   socket.on('startRecord', function() {
-    const path = './process/example/read_mindwave_mobile.py';
-    const recorder = spawn('python', [path]);
-    let started = false;
     let dataBuffers = [];
-    recorder.stdout.on('data', (data) => {
-      if (!started) {
-        started = true;
-        setTimeout(function() {
-          recorder.kill('SIGINT');
-        }, 5000);
-      }
-      dataBuffers.push(data.toString());
-    });
-    recorder.stdout.on('close', (code) => {
-      console.log(dataBuffers);
-      let finalArray = [];
-      dataBuffers.forEach(buffer => {
-        finalArray.push(...buffer.split(os.EOL));
-      });
-      fs.writeFileSync('data.csv', finalArray.join('\n'), 'utf8', function (err) {
-        if (err) {
-          console.log('Some error occured - file either not saved or corrupted file saved.');
-        } else{
-          console.log('It\'s saved!');
-        }
-      });
-      console.log(`child process exited with code ${code}`);
-    });
+    onChildData(dataBuffers);
+    onChildClose(dataBuffers);
   });
-})
+});
+
+function onChildData(dataBuffers) {
+  let started = false;
+  recorder.stdout.on('data', (data) => {
+    if (!started) {
+      setTimer(10000);
+      started = true;
+    }
+    dataBuffers.push(data.toString());
+  });
+}
+
+function setTimer(time) {
+  setTimeout(function() {
+    recorder.kill('SIGINT');
+  }, time);
+}
+
+function onChildClose(dataBuffers) {
+  recorder.stdout.on('close', (code) => {
+    let data = [];
+    dataBuffers.forEach(buffer => {
+      data.push(...buffer.split(os.EOL));
+    });
+    writeToCSV(data)
+    console.log(`child process exited with code ${code}`);
+  });
+}
+
+function writeToCSV(data) {
+  fs.writeFileSync('data.csv', data.join('\n'), 'utf8', function (err) {
+    if (err) {
+      console.log('Some error occured - file either not saved or corrupted file saved.');
+    } else{
+      console.log('File saved!');
+    }
+  });
+}
 
 server.listen(process.env.PORT || 8000, function () {
   console.log('Express server for headset connection listening on ' + server.address().port);
