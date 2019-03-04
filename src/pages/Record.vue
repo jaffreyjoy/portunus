@@ -47,11 +47,16 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import record from '../record';
 
+let that = null;
+
 export default {
   name: "Record",
   components: {
     Navbar,
     Footer
+  },
+  created() {
+    that = this;
   },
   methods: {
     startRecord() {
@@ -65,6 +70,9 @@ export default {
         3: 'Email already exists'
       }
       console.log(message[status]);
+      if (status == 1) {
+        that.$router.push('/app');
+      }
     }
   }
 };

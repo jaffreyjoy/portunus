@@ -4,18 +4,20 @@ const client = require('./client');
 const recordPage = require('./pages/Record');
 
 async function register(user) {
-  console.log(client);
+  console.log('in register');
   const res = await client.default.register(user);
+  console.log(user, res);
   if (res === 1) {
     client.default.setUserSession(user.name, user.username, user.email);
   }
   recordPage.default.methods.postRegisterAction(res);
+  return;
 }
 
 export default function(user) {
   socket.emit('startRecord');
-  socket.on('recorded', function(status) {
+  socket.on('recorded', async function(status) {
     console.log('recorded', status);
-    register(user);
+    await register(user);
   });
 }

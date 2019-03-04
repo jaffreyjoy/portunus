@@ -7,10 +7,13 @@ const fs = require('fs');
 const os = require('os');
 
 const path = './process/csv_writer.py';//example/read_mindwave_mobile.py';
-const recorder = spawn('python', [path]);
+let recorder = null;
+let timer = null;
+let started = false;
 
 io.on('connection', function (socket) {
   socket.on('startRecord', function() {
+    recorder = spawn('python', [path]);
     let dataBuffers = [];
     onChildData(dataBuffers);
     onChildClose(dataBuffers).then(() => {
@@ -23,7 +26,6 @@ io.on('connection', function (socket) {
 });
 
 function onChildData(dataBuffers) {
-  let started = false;
   recorder.stdout.on('data', (data) => {
     if (!started) {
       setTimer(10000);
@@ -34,7 +36,7 @@ function onChildData(dataBuffers) {
 }
 
 function setTimer(time) {
-  setTimeout(function() {
+  timer = setTimeout(function() {
     recorder.kill('SIGINT');
   }, time);
 }
@@ -60,6 +62,8 @@ function onChildClose(dataBuffers) {
 function writeToCSV(data) {
   return new Promise((resolve, reject) => {
     fs.writeFile('data.csv', data.join('\n'), function (err) {
+      clearTimeout(timer);
+      started = false;
       if (err) {
         console.log('Some error occured - file either not saved or corrupted file saved.');
         reject();
