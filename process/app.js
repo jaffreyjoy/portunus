@@ -12,11 +12,11 @@ let timer = null;
 let started = false;
 
 io.on('connection', function (socket) {
-  socket.on('startRecord', function() {
+  socket.on('startRecord', function(last) {
     recorder = spawn('python', [path]);
     let dataBuffers = [];
     onChildData(dataBuffers);
-    onChildClose(dataBuffers).then(() => {
+    onChildClose(dataBuffers, last).then(() => {
       socket.emit('recorded', true);
     })
     .catch(() => {
@@ -41,7 +41,7 @@ function setTimer(time) {
   }, time);
 }
 
-function onChildClose(dataBuffers) {
+function onChildClose(dataBuffers, last) {
   return new Promise((resolve, reject) => {
     recorder.stdout.on('close', (code) => {
       console.log(`child process exited with code ${code}`);
@@ -49,7 +49,7 @@ function onChildClose(dataBuffers) {
       dataBuffers.forEach(buffer => {
         data.push(...buffer.split(os.EOL));
       });
-      writeToCSV(data).then(() => { 
+      writeToCSV(data, last).then(() => { 
         resolve(); 
       })
       .catch(() => {
@@ -59,9 +59,9 @@ function onChildClose(dataBuffers) {
   });
 }
 
-function writeToCSV(data) {
+function writeToCSV(data, last) {
   return new Promise((resolve, reject) => {
-    fs.writeFile('data.csv', data.join('\n'), function (err) {
+    fs.writeFile(`./userdata/${last}.csv`, data.join('\n'), function (err) {
       clearTimeout(timer);
       started = false;
       if (err) {

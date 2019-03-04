@@ -9,6 +9,7 @@ const auth = require('./auth');
 const getUserDetails = require('./session');
 const file = require('./file');
 const exp = require('./explorer');
+const misc = require('./misc');
 
 function format(value) {
   return ("0" + value).slice(-2);
@@ -72,6 +73,11 @@ io.on('connection', function (socket) {
     console.log(`server : `)
     console.log(res)
     respond(res);
+  });
+
+  socket.on('getLast', async function(respond) {
+    const last = await misc.getLast();
+    respond(last);
   });
 });
 

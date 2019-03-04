@@ -2,6 +2,7 @@
 node_modules
 /dist
 /server/Uploads/
+/userdata
 
 # local env files
 .env.local
