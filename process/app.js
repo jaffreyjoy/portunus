@@ -13,7 +13,12 @@ io.on('connection', function (socket) {
   socket.on('startRecord', function() {
     let dataBuffers = [];
     onChildData(dataBuffers);
-    onChildClose(dataBuffers);
+    onChildClose(dataBuffers).then(() => {
+      socket.emit('recorded', true);
+    })
+    .catch(() => {
+      socket.emit('recorded', false);
+    });
   });
 });
 
@@ -35,23 +40,34 @@ function setTimer(time) {
 }
 
 function onChildClose(dataBuffers) {
-  recorder.stdout.on('close', (code) => {
-    let data = [];
-    dataBuffers.forEach(buffer => {
-      data.push(...buffer.split(os.EOL));
+  return new Promise((resolve, reject) => {
+    recorder.stdout.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+      let data = [];
+      dataBuffers.forEach(buffer => {
+        data.push(...buffer.split(os.EOL));
+      });
+      writeToCSV(data).then(() => { 
+        resolve(); 
+      })
+      .catch(() => {
+        reject();
+      })
     });
-    writeToCSV(data)
-    console.log(`child process exited with code ${code}`);
   });
 }
 
 function writeToCSV(data) {
-  fs.writeFileSync('data.csv', data.join('\n'), 'utf8', function (err) {
-    if (err) {
-      console.log('Some error occured - file either not saved or corrupted file saved.');
-    } else{
-      console.log('File saved!');
-    }
+  return new Promise((resolve, reject) => {
+    fs.writeFile('data.csv', data.join('\n'), function (err) {
+      if (err) {
+        console.log('Some error occured - file either not saved or corrupted file saved.');
+        reject();
+      } else {
+        console.log('File saved!');
+        resolve();
+      }
+    });
   });
 }
 

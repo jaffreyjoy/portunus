@@ -122,7 +122,6 @@
 </template>
 
 <script>
-import client from '../client';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -209,18 +208,7 @@ export default {
           username: this.username,
           password: this.password
         }
-        const res = await client.register(user);
-        const message = {
-          0: 'Something went wrong',
-          1: 'Registration successfull',
-          2: 'Username already exists',
-          3: 'Email already exists'
-        }
-        this.showAlert(message[res]);
-        if (res === 1) {
-          client.setUserSession(this.name, this.username, this.email);
-          this.$router.push('/record');
-        }
+        this.$router.push({ path: '/record', query: { user } });
       }
     },
     showAlert: function(message) {

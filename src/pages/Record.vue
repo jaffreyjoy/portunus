@@ -55,7 +55,16 @@ export default {
   },
   methods: {
     startRecord() {
-      record();
+      record(this.$route.query.user);
+    },
+    postRegisterAction(status) {
+      const message = {
+        0: 'Something went wrong',
+        1: 'Registration successfull',
+        2: 'Username already exists',
+        3: 'Email already exists'
+      }
+      console.log(message[status]);
     }
   }
 };
