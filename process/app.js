@@ -12,12 +12,12 @@ let timer = null;
 let started = false;
 
 io.on('connection', function (socket) {
-  socket.on('startRecord', function(last) {
+  socket.on('startRecord', function() {
     recorder = spawn('python', [path]);
     let dataBuffers = [];
     onChildData(dataBuffers);
-    onChildClose(dataBuffers, last).then(() => {
-      socket.emit('recorded', true);
+    onChildClose(dataBuffers).then((data) => {
+      socket.emit('recorded', true, data);
     })
     .catch(() => {
       socket.emit('recorded', false);
@@ -41,7 +41,7 @@ function setTimer(time) {
   }, time);
 }
 
-function onChildClose(dataBuffers, last) {
+function onChildClose(dataBuffers) {
   return new Promise((resolve, reject) => {
     recorder.stdout.on('close', (code) => {
       console.log(`child process exited with code ${code}`);
@@ -49,31 +49,33 @@ function onChildClose(dataBuffers, last) {
       dataBuffers.forEach(buffer => {
         data.push(...buffer.split(os.EOL));
       });
-      writeToCSV(data, last).then(() => { 
-        resolve(); 
-      })
-      .catch(() => {
-        reject();
-      })
+      clearTimeout(timer);
+      started = false;
+      resolve(data);
+      // writeToCSV(data, last).then(() => { 
+      //   resolve(); 
+      // })
+      // .catch(() => {
+      //   reject();
+      // })
     });
   });
 }
 
-function writeToCSV(data, last) {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(`./userdata/${last}.csv`, data.join('\n'), function (err) {
-      clearTimeout(timer);
-      started = false;
-      if (err) {
-        console.log('Some error occured - file either not saved or corrupted file saved.');
-        reject();
-      } else {
-        console.log('File saved!');
-        resolve();
-      }
-    });
-  });
-}
+// function writeToCSV(data, last) {
+//   return new Promise((resolve, reject) => {
+//     fs.writeFile(`./userdata/${last}.csv`, data.join('\n'), function (err) {
+//       started = false;
+//       if (err) {
+//         console.log('Some error occured - file either not saved or corrupted file saved.');
+//         reject();
+//       } else {
+//         console.log('File saved!');
+//         resolve();
+//       }
+//     });
+//   });
+// }
 
 server.listen(process.env.PORT || 8000, function () {
   console.log('Express server for headset connection listening on ' + server.address().port);

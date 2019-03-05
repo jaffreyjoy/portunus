@@ -1,5 +1,6 @@
 const md5 = require("blueimp-md5");
 const { getDb } = require('./database');
+const misc = require('./misc');
 
 async function checkIfExists(field, value) {
   let obj = {};
@@ -33,14 +34,18 @@ module.exports = {
         if (res) resolve(res === 'username' ? 2 : 3)
         else {
           user.password = md5(user.password);
-          db.collection('user').insertOne(user, function (err, res) {
-            if (err) {
-              console.error(err);
-              resolve(0);
-            } else {
-              resolve(1);
-            }
-          });
+          misc.getLast().then((last) => {
+            user['index'] = last;
+            db.collection('user').insertOne(user, function (err, res) {
+              if (err) {
+                console.error(err);
+                resolve(0);
+              } else {
+                resolve(1);
+              }
+            });
+          })
+          .catch((e) => console.log(e));
         }
       });
     });

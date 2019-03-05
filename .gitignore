@@ -2,7 +2,7 @@
 node_modules
 /dist
 /server/Uploads/
-/userdata
+/server/UserEEGData/
 
 # local env files
 .env.local

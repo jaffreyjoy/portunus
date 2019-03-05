@@ -75,9 +75,10 @@ io.on('connection', function (socket) {
     respond(res);
   });
 
-  socket.on('getLast', async function(respond) {
-    const last = await misc.getLast();
-    respond(last);
+  socket.on('eegData', async function(data, respond) {
+    console.log('in eeg');
+    misc.writeToCSV(data).then(() => respond(true))
+    .catch(() => respond(false));
   });
 });
 
