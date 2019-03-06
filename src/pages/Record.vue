@@ -2,41 +2,44 @@
   <div>
     <!-- Navbar -->
     <Navbar />
-    <!-- Header -->
-    <div class="header py-4 py-lg-5">
-      <div class="container">
-        <div class="header-body text-center mb-5">
-          <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6">
-              <h1 class="text-dark">Welcome!</h1>
-              <p
-                class="text-lead text-white"
-              >Share files securely with Portunus!</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- Page content -->
-    <div class="container mt--4 pb-5">
-      <!-- Table -->
-      <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-header bg-transparent">
-              <h1 class="text-center">
-                Record
-              </h1>
-            </div>
-            <div class="card-body px-lg-5 py-lg-5">
-              <div class="text-center">
-                  <button type="button" class="btn btn-primary mt-4" @click="startRecord">Start Recording</button>
+    <div class="container py-5 mt--4 pb-5">
+        <!-- Table -->
+        <div class="row justify-content-center">
+          <div class="col-lg-6 col-md-8">
+            <div class="card bg-secondary shadow border-0">
+              <div class="card-header bg-transparent">
+                <h1 class="text-center">
+                  EEG Recording
+                </h1>
+              </div>
+              <div class="card-body px-lg-5 py-lg-3">
+                <div v-if="started">
+                  <center>
+                    <p>Please Wait, Recording...</p><br>
+                    <h2>{{ `${("0"+minute).slice(-2)} : ${("0"+second).slice(-2)}` }}</h2><br>
+                    <img src="../../assets/825.gif" alt="">
+                  </center>
+                </div>
+                <div v-else>
+                  <p class="bold">Read the following instructions carefully before you start recording.</p>
+                  <ul>
+                    <li>Put the headset in pairing mode.</li>
+                    <li>See to that the headset sensor is properly touching your forehead.</li>
+                    <li>Close your eyes.</li>
+                    <li>Stay calm.</li>
+                    <li>Do not make any sudden movements.</li>
+                    <li>Open your eyes when you hear the beep sound.</li>
+                  </ul>
+                  <center>
+                    <button type="button" class="btn btn-primary mt-4" @click="startRecord">Start Recording</button>
+                  </center>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     <!-- Footer -->
     <Footer />
   </div>
@@ -55,21 +58,40 @@ export default {
     Navbar,
     Footer
   },
+  data() {
+    return {
+      beep: new Audio(require('../../assets/beep.mp3')),
+      started: false,
+      timer: null,
+      minute: 0,
+      second: 10
+    }
+  },
   created() {
     that = this;
   },
   methods: {
     startRecord() {
+      this.started = true;
+      this.startTimer();
       record(this.$route.query.user);
     },
+    startTimer() {
+      this.timer = setInterval(() => {
+        this.second--;
+        if (this.second == -1) {
+          this.minute--;
+          this.second = 59;
+        }
+        if (this.minute == -1) {
+          this.beep.play();
+          this.minute = this.second = 0;
+          clearInterval(this.timer);
+        }
+      }, 1000);
+    },
     postRegisterAction(status) {
-      const message = {
-        0: 'Something went wrong',
-        1: 'Registration successfull',
-        2: 'Username already exists',
-        3: 'Email already exists'
-      }
-      console.log(message[status]);
+      console.log(status);
       if (status == 1) {
         that.$router.push('/app');
       }
