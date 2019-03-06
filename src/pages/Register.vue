@@ -124,6 +124,7 @@
 <script>
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import client from '../client';
 
 export default {
   name: "Register",
@@ -208,7 +209,15 @@ export default {
           username: this.username,
           password: this.password
         }
-        this.$router.push({ path: '/record', query: { user } });
+        client.checkExists(user).then((res) => {
+          if (res === 1) {
+            this.$router.push({ path: '/record', query: { user } });
+          } else if (res === 2) {
+            this.showAlert('Username already exists');
+          } else {
+            this.showAlert('Email already exists');
+          }
+        });
       }
     },
     showAlert: function(message) {

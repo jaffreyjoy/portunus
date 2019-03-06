@@ -17,37 +17,32 @@ async function checkIfExists(field, value) {
   })
 }
 
-async function checkDuplicate(user) {
-  for (let field of ['username', 'email']) {
-    if (await checkIfExists(field, user[field])) {
-      return field === 'username' ? 'username' : 'email';
-    }
-  }
-  return 0;
-}
-
 module.exports = {
+  checkDuplicate: async function(user) {
+    for (let field of ['username', 'email']) {
+      if (await checkIfExists(field, user[field])) {
+        return field === 'username' ? 'username' : 'email';
+      }
+    }
+    return 0;
+  },
+
   register: async function (user) {
     const db = getDb();
     return new Promise(resolve => {
-      checkDuplicate(user).then(res => {
-        if (res) resolve(res === 'username' ? 2 : 3)
-        else {
-          user.password = md5(user.password);
-          misc.getLast().then((last) => {
-            user['index'] = last;
-            db.collection('user').insertOne(user, function (err, res) {
-              if (err) {
-                console.error(err);
-                resolve(0);
-              } else {
-                resolve(1);
-              }
-            });
-          })
-          .catch((e) => console.log(e));
-        }
-      });
+      user.password = md5(user.password);
+      misc.getLast().then((last) => {
+        user['index'] = last;
+        db.collection('user').insertOne(user, function (err, res) {
+          if (err) {
+            console.error(err);
+            resolve(0);
+          } else {
+            resolve(1);
+          }
+        });
+      })
+      .catch((e) => console.log(e));
     });
   },
 

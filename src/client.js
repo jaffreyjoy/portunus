@@ -14,6 +14,14 @@ socket.on('updateFiles', function() {
 });
 
 export default {
+  checkExists: async function (user) {
+    return new Promise(resolve => {
+      socket.emit('checkExists', user, function (res) {
+        resolve(res);
+      });
+    });
+  },
+
   register: async function (user) {
     return new Promise(resolve => {
       socket.emit('register', user, function (res) {

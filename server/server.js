@@ -50,6 +50,15 @@ io.on('connection', function (socket) {
     console.log("Error from uploader", event);
   });
 
+  socket.on('checkExists', async function (user, respond) {
+    auth.checkDuplicate(user).then(res => {
+      if (res) {
+        respond(res === 'username' ? 2: 3);
+      }
+      respond(1);
+    });
+  });
+
   socket.on('register', async function (user, respond) {
     const res = await auth.register(user);
     if (res === 1) {
