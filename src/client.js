@@ -56,7 +56,7 @@ export default {
   getUserFiles: async function(username) {
     return new Promise((resolve) => {
       socket.emit('getUserFiles', username, async (res) => {
-        res.map(el=>_.setIconClass(el));
+        res.forEach(el=>_.setIconClass(el));
         console.log(`client : `)
         console.log(res)
         resolve(res);

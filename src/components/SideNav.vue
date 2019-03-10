@@ -77,7 +77,7 @@
           <span class="btn-inner--text">Upload</span>
         </button>
         <!-- Share button -->
-        <button class="btn btn-icon btn-3 btn-outline-default btn-lg mt-3" type="button">
+        <button class="btn btn-icon btn-3 btn-outline-default btn-lg mt-3" type="button" data-toggle="modal" data-target="#shareModal">
           <span class="btn-inner--icon"><i class="fa fa-share-alt"></i></span>
           <span class="btn-inner--text">Share</span>
         </button>

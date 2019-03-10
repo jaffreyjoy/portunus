@@ -84,16 +84,20 @@
     </div>
     <!-- Upload Modal -->
     <UploadModal />
+    <!-- Share Modal -->
+    <ShareModal />
   </div>
 </template>
 <script>
+import ShareModal from './ShareModal';
 import UploadModal from './UploadModal';
 import client from "../client.js";
 let that = null;
 export default {
   name: "Dashboard",
   components: {
-    UploadModal
+    UploadModal,
+    ShareModal
   },
   data: function() {
     return {
