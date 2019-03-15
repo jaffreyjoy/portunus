@@ -1,6 +1,7 @@
 const express = require('express');
 const SocketIOFileUpload = require("socketio-file-upload");
 const fs = require('fs');
+const { spawn } = require('child_process');
 const app = express().use(SocketIOFileUpload.router);
 const server = require('http').Server(app);
 const io = require('socket.io').listen(server);
@@ -10,6 +11,9 @@ const getUserDetails = require('./session');
 const file = require('./file');
 const exp = require('./explorer');
 const misc = require('./misc');
+const train = require('./train');
+
+let removeIn = null;
 
 function format(value) {
   return ("0" + value).slice(-2);
@@ -86,7 +90,16 @@ io.on('connection', function (socket) {
 
   socket.on('eegData', async function(data, respond) {
     console.log('in eeg');
-    misc.writeToCSV(data).then(() => respond(true))
+    misc.writeToCSV(data).then((fileName) => {
+      removeIn = spawn('python', ['clean_data.py', `./UserEEGData/${fileName}.csv`]);
+      removeIn.stdout.on('close', async (code) => {
+        console.log('Removed in', code);
+        await train.epochSeparate(fileName);
+        await train.featureExtract(fileName);
+        await train.bpnn(fileName);
+        respond(true); 
+      });
+    })
     .catch(() => respond(false));
   });
 });

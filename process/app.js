@@ -3,7 +3,6 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io').listen(server);
 const { spawn } = require('child_process');
-const fs = require('fs');
 const os = require('os');
 
 const path = './process/csv_writer.py';//example/read_mindwave_mobile.py';
@@ -52,30 +51,9 @@ function onChildClose(dataBuffers) {
       clearTimeout(timer);
       started = false;
       resolve(data);
-      // writeToCSV(data, last).then(() => { 
-      //   resolve(); 
-      // })
-      // .catch(() => {
-      //   reject();
-      // })
     });
   });
 }
-
-// function writeToCSV(data, last) {
-//   return new Promise((resolve, reject) => {
-//     fs.writeFile(`./userdata/${last}.csv`, data.join('\n'), function (err) {
-//       started = false;
-//       if (err) {
-//         console.log('Some error occured - file either not saved or corrupted file saved.');
-//         reject();
-//       } else {
-//         console.log('File saved!');
-//         resolve();
-//       }
-//     });
-//   });
-// }
 
 server.listen(process.env.PORT || 8000, function () {
   console.log('Express server for headset connection listening on ' + server.address().port);

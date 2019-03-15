@@ -30,7 +30,7 @@ module.exports = {
             reject();
           } else {
             console.log('File saved!');
-            resolve();
+            resolve(last-1);
           }
         });
       })
