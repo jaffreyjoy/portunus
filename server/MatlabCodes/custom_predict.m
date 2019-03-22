@@ -1,6 +1,11 @@
 %test = load('anto.csv');
 test = load('jaffrey.csv');
 
+mu = load('../TrainedParameters/mu.csv');
+sigma = load('../TrainedParameters/sigma.csv');
+Theta1 = load('../TrainedParameters/theta1.csv');
+Theta2 = load('../TrainedParameters/theta2.csv');
+
 plot(test);
 
 %%{

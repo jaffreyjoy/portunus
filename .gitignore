@@ -3,6 +3,9 @@ node_modules
 /dist
 /server/Uploads/
 /server/UserEEGData/
+/server/EpochSepData/
+/server/FeatureVector/
+/server/TrainedParameters/
 
 # local env files
 .env.local

@@ -5,7 +5,7 @@ function epoch_separation(num_of_users)
     input_path = "../UserEEGData/";
     output_path = "../EpochSepData/";
 
-    filename = strcat(input_path,sprintf("%d.csv",num_of_users));
+    filename = strcat(input_path,sprintf('%d.csv',num_of_users));
     temp1 = csvread(filename);
     mydata = [];
     mydata = horzcat(mydata,temp1);
@@ -15,7 +15,7 @@ function epoch_separation(num_of_users)
     k = 1;
     epochs = 4
     for i=1:epochs
-        filename1 = strcat(output_path,sprintf("/%d/epoch%d.csv",num_of_users,i));
+        filename1 = strcat(output_path,sprintf('/%d/epoch%d.csv',num_of_users,i));
         fid = fopen(filename1,'w');
         dlmwrite(filename1,mydata(k:k+1279,:),'delimiter',',','precision','%3.6f')
         k = k+1279;

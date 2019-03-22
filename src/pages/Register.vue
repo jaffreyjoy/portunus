@@ -143,8 +143,14 @@ export default {
       alertMessage: null,
       invalidUsername: null,
       invalidEmail: null,
-      termsChecked: false
+      termsChecked: true
     }
+  },
+  created() {
+    this.name = 'anto';
+    this.email = `${this.getRand()}@gmail.com`;
+    this.username = `${this.getRand()}000000`;
+    this.password = 'anto';
   },
   computed: {
     validUsername: function() {
@@ -188,6 +194,9 @@ export default {
     }
   },
   methods: {
+    getRand: function() {
+      return Math.floor(Math.random()*1000)+1;
+    },
     validate: function() {
       if (!this.name || !this.email || !this.username || !this.password) {
         this.showAlert("Please fill all the fields :)");

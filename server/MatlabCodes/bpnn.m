@@ -1,19 +1,20 @@
 function bpnn(num_of_users)
-    X = load('data.csv');
-
+    X = load('../TrainedParameters/data.csv');
     t_error = [];
     cv_error = [];
-
+    
     num_features = 51;
-
+    
     input_layer_size  = num_features;
 
     hidden_layer_size = 50;
-    num_labels = 10;
+    num_labels = num_of_users;
+
+    disp(num_labels);
 
     epochs = 4;
-    rows = epochs*num_of_users;
-
+    rows = epochs;
+    
     X_train = [];
     y_train = [];
 
@@ -23,6 +24,10 @@ function bpnn(num_of_users)
     start = 1;
     mid = floor(rows*0.8);
     rest = rows-mid;
+
+    fprintf('start=%d\n', start);
+    fprintf('mid=%d\n', mid);
+    fprintf('rest=%d\n', rest);
 
     for i=1:num_labels
         X_train = [X_train; X(start:start+mid-1,1:num_features)]; %229
@@ -91,10 +96,9 @@ function bpnn(num_of_users)
     Theta2 = reshape(nn_params((1 + (hidden_layer_size * (input_layer_size + 1))):end), ...
                     num_labels, (hidden_layer_size + 1));
     
-    filename1 = '../TrainedParameters';
-    dlmwrite(filename1,Theta1,'delimiter',',','precision','%3.6f')
-    dlmwrite(filename1,Theta2,'delimiter',',','precision','%3.6f')
-    dlmwrite(filename1,mu,'delimiter',',','precision','%3.6f')
-    dlmwrite(filename1,sigma,'delimiter',',','precision','%3.6f')
+    dlmwrite('../TrainedParameters/theta1.csv',Theta1,'delimiter',',','precision','%3.6f')
+    dlmwrite('../TrainedParameters/theta2.csv',Theta2,'delimiter',',','precision','%3.6f')
+    dlmwrite('../TrainedParameters/mu.csv',mu,'delimiter',',','precision','%3.6f')
+    dlmwrite('../TrainedParameters/sigma.csv',sigma,'delimiter',',','precision','%3.6f')
 
 end
