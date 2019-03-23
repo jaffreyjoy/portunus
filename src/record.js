@@ -3,9 +3,9 @@ const client = require('./client');
 const recordPage = require('./pages/Record');
 let socket = null;
 
-function sendEegDataToServer(data) {
+function sendEegDataToServer(dataObj) {
   socket = io.connect('http://localhost:3000');
-  socket.emit('eegData', data, function(status) {
+  socket.emit('eegData', dataObj, function(status) {
     console.log(status);
     if (status)
       recordPage.default.methods.postRegisterAction(status);
@@ -14,21 +14,25 @@ function sendEegDataToServer(data) {
   });
 }
 
-async function register(user, data) {
+async function register(type, user, data) {
   const res = await client.default.register(user);
   console.log(user, res);
   if (res === 1) {
     client.default.setUserSession(user.name, user.username, user.email);
-    sendEegDataToServer(data);
+    sendEegDataToServer({ type, data });
   }
   return;
 }
 
-export default function(user) {
+export default function(param) {
   socket = io.connect('http://localhost:8000');
   socket.emit('startRecord');
   socket.on('recorded', async function(status, data) {
     console.log('recorded', status);
-    await register(user, data);
+    if (param.type === 'register') {
+      await register(param.type, param.user, data);
+    } else {
+      sendEegDataToServer({ type: param.type, data });
+    }
   });
 }

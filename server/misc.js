@@ -19,24 +19,37 @@ module.exports = {
     });
   },
 
-  writeToCSV(data) {
+  writeToCSV(dataObj) {
     return new Promise((resolve, reject) => {
-      this.getLast().then((last) => {
-        console.log('in write');
-        fs.writeFile(`./server/UserEEGData/${last-1}.csv`, data.join('\n'), function (err) {
+      if (dataObj.type === 'login') {
+        fs.writeFile(`./server/UserEEGData/login.csv`, dataObj.data.join('\n'), function (err) {
           console.log(err);
           if (err) {
             console.log('Some error occured - file either not saved or corrupted file saved.');
             reject();
           } else {
-            console.log('File saved!');
-            resolve(last-1);
+            console.log('Login File saved!');
+            resolve(0);
           }
         });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      } else {
+        this.getLast().then((last) => {
+          console.log('in write');
+          fs.writeFile(`./server/UserEEGData/${last-1}.csv`, data.join('\n'), function (err) {
+            console.log(err);
+            if (err) {
+              console.log('Some error occured - file either not saved or corrupted file saved.');
+              reject();
+            } else {
+              console.log('Register File saved!');
+              resolve(last-1);
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }
     });
   }
 }

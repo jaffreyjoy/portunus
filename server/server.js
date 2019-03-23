@@ -88,17 +88,17 @@ io.on('connection', function (socket) {
     respond(res);
   });
 
-  socket.on('eegData', async function(data, respond) {
+  socket.on('eegData', async function(dataObj, respond) {
     console.log('in eeg');
-    misc.writeToCSV(data).then((fileName) => {
-      removeIn = spawn('python', ['clean_data.py', `./UserEEGData/${fileName}.csv`]);
-      removeIn.stdout.on('close', async (code) => {
-        console.log('Removed in', code);
+    misc.writeToCSV(dataObj).then(async (fileName) => {
+      if (fileName === 0) {
+        await train.predict();
+      } else {
         await train.epochSeparate(fileName);
         await train.featureExtract(fileName);
         await train.bpnn(fileName);
-        respond(true); 
-      });
+        respond(true);
+      } 
     })
     .catch(() => respond(false));
   });

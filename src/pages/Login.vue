@@ -101,17 +101,13 @@ export default {
           username: this.username,
           password: this.password
         }
-        const res = await client.login(user);
-        const message = {
-          0: 'Something went wrong :(',
-          1: 'Login successfull :)',
-          2: 'Incorrect credentials :('
-        }
-        this.showAlert(message[res]);
-        if (res === 1) {
-          await client.getUserSession(this.username);
-          this.$router.push('/app');
-        }
+        this.$router.push({ 
+          path: '/record', 
+          query: { 
+            user, 
+            type: 'login'
+          } 
+        });
       }
     },
     showAlert: function(message) {

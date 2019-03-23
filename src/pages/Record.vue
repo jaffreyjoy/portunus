@@ -63,18 +63,25 @@ export default {
       beep: new Audio(require('../../assets/beep.mp3')),
       started: false,
       timer: null,
-      minute: 0,
-      second: 10
+      minute: null,
+      second: null
     }
   },
   created() {
     that = this;
+    if (this.$route.query.type = 'login') {
+      this.minute = 0;
+      this.second = 5;
+    } else {
+      this.minute = 0;
+      this.second = 10;
+    }
   },
   methods: {
     startRecord() {
       this.started = true;
       this.startTimer();
-      record(this.$route.query.user);
+      record(this.$route.query);
     },
     startTimer() {
       this.timer = setInterval(() => {

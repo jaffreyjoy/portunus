@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Navbar -->
-    <Navbar />
+    <Navbar/>
     <!-- Header -->
     <div class="header py-4 py-lg-5">
       <div class="container">
@@ -9,9 +9,7 @@
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
               <h1 class="text-dark">Welcome!</h1>
-              <p
-                class="text-lead text-white"
-              >Share files securely with Portunus!</p>
+              <p class="text-lead text-white">Share files securely with Portunus!</p>
             </div>
           </div>
         </div>
@@ -24,13 +22,11 @@
         <div class="col-lg-6 col-md-8">
           <div class="card bg-secondary shadow border-0">
             <div class="card-header bg-transparent">
-              <h1 class="text-center">
-                Sign Up
-              </h1>
+              <h1 class="text-center">Sign Up</h1>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
               <div v-if="alertMessage" class="alert alert-danger fade show" role="alert">
-                  <span class="alert-inner--text">{{ alertMessage }}</span>
+                <span class="alert-inner--text">{{ alertMessage }}</span>
               </div>
               <form role="form">
                 <div class="form-group">
@@ -45,7 +41,10 @@
                 </div>
                 <div class="text-muted">
                   <small>
-                    <span v-if="!validEmail" class="text-warning font-weight-700">Incomplete/Invalid E-mail address</span>
+                    <span
+                      v-if="!validEmail"
+                      class="text-warning font-weight-700"
+                    >Incomplete/Invalid E-mail address</span>
                   </small>
                 </div>
                 <div class="form-group">
@@ -60,7 +59,10 @@
                 </div>
                 <div class="text-muted">
                   <small>
-                    <span v-if="!validUsername" class="text-warning font-weight-700">Username must be atleast 6 characters long</span>
+                    <span
+                      v-if="!validUsername"
+                      class="text-warning font-weight-700"
+                    >Username must be atleast 6 characters long</span>
                   </small>
                 </div>
                 <div class="form-group">
@@ -70,13 +72,22 @@
                         <i class="ni ni-hat-3"></i>
                       </span>
                     </div>
-                    <input class="form-control" placeholder="Username" type="text" v-model="username">
+                    <input
+                      class="form-control"
+                      placeholder="Username"
+                      type="text"
+                      v-model="username"
+                    >
                   </div>
                 </div>
                 <div class="text-muted">
                   <small>
-                    <span v-if="passwordStrengthCalc" class="font-weight-700">Password Strength: </span>
-                    <span v-if="passwordStrengthCalc" :class="[passwordStrengthClass]" class="font-weight-700">{{ passwordStrength }}</span>
+                    <span v-if="passwordStrengthCalc" class="font-weight-700">Password Strength:</span>
+                    <span
+                      v-if="passwordStrengthCalc"
+                      :class="[passwordStrengthClass]"
+                      class="font-weight-700"
+                    >{{ passwordStrength }}</span>
                   </small>
                 </div>
                 <div class="form-group">
@@ -86,7 +97,12 @@
                         <i class="ni ni-lock-circle-open"></i>
                       </span>
                     </div>
-                    <input class="form-control" placeholder="Password" type="password" v-model="password">
+                    <input
+                      class="form-control"
+                      placeholder="Password"
+                      type="password"
+                      v-model="password"
+                    >
                   </div>
                 </div>
                 <div class="row my-4">
@@ -117,14 +133,14 @@
       </div>
     </div>
     <!-- Footer -->
-    <Footer />
+    <Footer/>
   </div>
 </template>
 
 <script>
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import client from '../client';
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import client from "../client";
 
 export default {
   name: "Register",
@@ -144,13 +160,13 @@ export default {
       invalidUsername: null,
       invalidEmail: null,
       termsChecked: true
-    }
+    };
   },
   created() {
-    this.name = 'anto';
+    this.name = "anto";
     this.email = `${this.getRand()}@gmail.com`;
     this.username = `${this.getRand()}000000`;
-    this.password = 'anto';
+    this.password = "anto";
   },
   computed: {
     validUsername: function() {
@@ -167,7 +183,7 @@ export default {
         var re = /\S+@\S+\.\S+/;
         const res = re.test(this.email);
         this.invalidEmail = !res;
-        return res; 
+        return res;
       } else {
         this.invalidEmail = false;
         return true;
@@ -178,14 +194,14 @@ export default {
         this.passwordEntered = true;
         const len = this.password.length;
         if (len > 0 && len <= 3) {
-          this.passwordStrengthClass = 'text-danger';
-          this.passwordStrength = 'Weak';
+          this.passwordStrengthClass = "text-danger";
+          this.passwordStrength = "Weak";
         } else if (len >= 4 && len <= 6) {
-          this.passwordStrengthClass = 'text-warning';
-          this.passwordStrength = 'Medium';
+          this.passwordStrengthClass = "text-warning";
+          this.passwordStrength = "Medium";
         } else {
-          this.passwordStrengthClass = 'text-success';
-          this.passwordStrength = 'Strong';
+          this.passwordStrengthClass = "text-success";
+          this.passwordStrength = "Strong";
         }
         return true;
       } else {
@@ -195,7 +211,7 @@ export default {
   },
   methods: {
     getRand: function() {
-      return Math.floor(Math.random()*1000)+1;
+      return Math.floor(Math.random() * 1000) + 1;
     },
     validate: function() {
       if (!this.name || !this.email || !this.username || !this.password) {
@@ -217,14 +233,20 @@ export default {
           email: this.email,
           username: this.username,
           password: this.password
-        }
-        client.checkExists(user).then((res) => {
+        };
+        client.checkExists(user).then(res => {
           if (res === 1) {
-            this.$router.push({ path: '/record', query: { user } });
+            this.$router.push({
+              path: "/record",
+              query: {
+                user,
+                type: "register"
+              }
+            });
           } else if (res === 2) {
-            this.showAlert('Username already exists');
+            this.showAlert("Username already exists");
           } else {
-            this.showAlert('Email already exists');
+            this.showAlert("Email already exists");
           }
         });
       }

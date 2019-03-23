@@ -62,5 +62,17 @@ module.exports = {
         resolve();
       });
     });
+  },
+
+  predict() {
+    return new Promise((resolve) => {
+      let runPredict = spawn('python', [__dirname+'/MatlabCodes/run_matlab.py', 4], {stdio: 'inherit'});
+      runPredict.on('data', function(data) {
+        console.log(data);
+      });
+      runPredict.on('close', function(close) {
+        resolve();
+      });
+    });
   }
 }
