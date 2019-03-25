@@ -8,6 +8,7 @@
     "serve": "vue-cli-service serve",
     "process": "node process/app.js",
     "build": "vue-cli-service build",
+    "clear": "python scripts/del.py",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

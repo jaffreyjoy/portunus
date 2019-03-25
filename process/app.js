@@ -5,22 +5,22 @@ const io = require('socket.io').listen(server);
 const { spawn } = require('child_process');
 const os = require('os');
 
-const path = './process/csv_writer.py';//example/read_mindwave_mobile.py';
+const path = './example/read_mindwave_mobile.py';
 let recorder = null;
 let timer = null;
 let started = false;
 
 io.on('connection', function (socket) {
-  socket.on('startRecord', function() {
+  socket.on('startRecord', function () {
     recorder = spawn('python', [path]);
     let dataBuffers = [];
     onChildData(dataBuffers);
     onChildClose(dataBuffers).then((data) => {
       socket.emit('recorded', true, data);
     })
-    .catch(() => {
-      socket.emit('recorded', false);
-    });
+      .catch(() => {
+        socket.emit('recorded', false);
+      });
   });
 });
 
@@ -35,7 +35,7 @@ function onChildData(dataBuffers) {
 }
 
 function setTimer(time) {
-  timer = setTimeout(function() {
+  timer = setTimeout(function () {
     recorder.kill('SIGINT');
   }, time);
 }
