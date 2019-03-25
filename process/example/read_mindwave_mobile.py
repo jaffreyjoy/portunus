@@ -11,7 +11,6 @@ if __name__ == '__main__':
         while(True):
             dataPoint = mindwaveDataPointReader.readNextDataPoint()
             if (not dataPoint.__class__ is RawDataPoint):
-                print('in')
                 pass
     #             print(dataPoint)
     # else:
