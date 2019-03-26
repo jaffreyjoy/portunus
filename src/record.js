@@ -32,7 +32,7 @@ export default function (param, time) {
     if (param.type === 'register') {
       await register(param.type, param.user, data);
     } else {
-      sendEegDataToServer({ type: param.type, data });
+      sendEegDataToServer({ user:param.user ,type: param.type, data });
     }
   });
 }

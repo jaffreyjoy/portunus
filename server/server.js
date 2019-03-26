@@ -12,6 +12,7 @@ const file = require('./file');
 const exp = require('./explorer');
 const misc = require('./misc');
 const train = require('./train');
+const mail = require('./mail');
 
 let removeIn = null;
 
@@ -27,6 +28,21 @@ function getDateTime() {
     date,
     time
   }
+}
+
+function getEmailData(user) {
+  let link = "localhost:8080/#/login";
+  let data = {}
+  data.subject = "Notification of successful account activation";
+  data.html = `
+          <h4>Dear ${user.name}, </h4>
+          <p>Your account has been succesfully activated.</p>
+          <p>Click on this <a href="${link}">link</a> to login to your activated account.</p>
+          <br>
+          <h4>Regards,</h4>
+          <h4>The Portunus Team</h4>
+        `;
+  return([user.email, data]);
 }
 
 io.on('connection', function (socket) {
@@ -90,16 +106,20 @@ io.on('connection', function (socket) {
 
   socket.on('eegData', async function (dataObj, respond) {
     console.log('in eeg');
-    misc.writeToCSV(dataObj).then(async (noOfUsers) => {
-      if (noOfUsers === 0) {
-        await train.predict();
-      } else {
-        await train.epochSeparate(noOfUsers);
-        await train.featureExtract(noOfUsers);
-        await train.bpnn(noOfUsers);
-        respond(true);
-      }
-    })
+    misc.writeToCSV(dataObj)
+      .then(async (noOfUsers) => {
+        if (noOfUsers === 0) {
+          await train.predict();
+        } else {
+          await train.epochSeparate(noOfUsers);
+          await train.featureExtract(noOfUsers);
+          await train.bpnn(noOfUsers);
+          mail.sendEmail(...getEmailData(dataObj.user))
+            .then(res=>console.log(res))
+            .catch(err=>console.log(err));
+          respond(true);
+        }
+      })
       .catch(() => respond(false));
   });
 });
