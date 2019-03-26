@@ -57,7 +57,7 @@ io.on('connection', function (socket) {
   socket.on('checkExists', async function (user, respond) {
     auth.checkDuplicate(user).then(res => {
       if (res) {
-        respond(res === 'username' ? 2: 3);
+        respond(res === 'username' ? 2 : 3);
       }
       respond(1);
     });
@@ -88,19 +88,19 @@ io.on('connection', function (socket) {
     respond(res);
   });
 
-  socket.on('eegData', async function(dataObj, respond) {
+  socket.on('eegData', async function (dataObj, respond) {
     console.log('in eeg');
-    misc.writeToCSV(dataObj).then(async (fileName) => {
-      if (fileName === 0) {
+    misc.writeToCSV(dataObj).then(async (noOfUsers) => {
+      if (noOfUsers === 0) {
         await train.predict();
       } else {
-        await train.epochSeparate(fileName);
-        await train.featureExtract(fileName);
-        await train.bpnn(fileName);
+        await train.epochSeparate(noOfUsers);
+        await train.featureExtract(noOfUsers);
+        await train.bpnn(noOfUsers);
         respond(true);
-      } 
+      }
     })
-    .catch(() => respond(false));
+      .catch(() => respond(false));
   });
 });
 

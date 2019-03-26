@@ -1,4 +1,4 @@
-function feature_extraction(num_of_users)
+function feature_extraction(num_of_users, noOfEpochs)
     mydata = [];
     formatSpec = "%3.6f";
     j = num_of_users; %file
@@ -7,8 +7,7 @@ function feature_extraction(num_of_users)
     input_path = "../EpochSepData/";
     output_path = "../FeatureVector/";
 
-    epoch = 60;
-    for k=1:epoch
+    for k=1:noOfEpochs
         filename = strcat(input_path,sprintf("%d/epoch%d.csv",j,k));
         data = csvread(filename);
         data = data(:,1);
