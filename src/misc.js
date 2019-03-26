@@ -12,11 +12,11 @@ export default {
     else
       return "other";
   },
-  setIconClass: function(obj) {
-    if (!obj.type || !fileIconsMap[obj.type])
-      return Object.assign(obj, fileIconsMap.other);
+  setIconClass: function(file) {
+    if (!file.type || !fileIconsMap[file.type])
+      return Object.assign(file, fileIconsMap.other);
     else {
-      return Object.assign(obj, fileIconsMap[obj.type]);
+      return Object.assign(file, fileIconsMap[file.type]);
     }
   }
 }
