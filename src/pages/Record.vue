@@ -79,8 +79,8 @@ export default {
       this.minute = 0;
       this.second = 30;
     } else {
-      this.minute = 0;
-      this.second = 50;
+      this.minute = 3;
+      this.second = 0;
     }
   },
   methods: {
