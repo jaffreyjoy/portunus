@@ -8,12 +8,11 @@ const os = require('os');
 const path = './process/example/read_mindwave_mobile.py';
 let recorder = null;
 let timer = null;
-// let started = false;
 
 io.on('connection', function (socket) {
   socket.on('startRecord', function () {
     recorder = spawn('python2', [path]);
-    setTimer(50000);
+    setTimer(30000);
     let dataBuffers = [];
     onChildData(dataBuffers);
     onChildClose(dataBuffers).then((data) => {
@@ -27,15 +26,11 @@ io.on('connection', function (socket) {
 
 function onChildData(dataBuffers) {
   recorder.stdout.on('data', (data) => {
-    // if (!started) {
-    //   started = true;
-    // }
     dataBuffers.push(data.toString());
   });
 }
 
 function setTimer(time) {
-  console.log('-------------------------------------------------------in kill timer');
   timer = setTimeout(function () {
     recorder.kill('SIGINT');
   }, time);
@@ -50,7 +45,6 @@ function onChildClose(dataBuffers) {
         data.push(...buffer.split(os.EOL));
       });
       clearTimeout(timer);
-      // started = false;
       resolve(data);
     });
   });

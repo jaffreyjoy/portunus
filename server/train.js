@@ -9,28 +9,42 @@ function createFolder(fileName, folder) {
 function mergeData(fileName) {
   return new Promise((resolve) => {
     console.log('in merge data');
-    let runMergeData = spawn('python', [__dirname+'/merge_files_custom.py', fileName], {stdio: 'inherit'});
-    runMergeData.on('data', function(data) {
+    let runMergeData = spawn('python', [__dirname + '/merge_files_custom.py', fileName], { stdio: 'inherit' });
+    runMergeData.on('data', function (data) {
       console.log(data);
     });
-    runMergeData.on('close', function(close) {
+    runMergeData.on('close', function (close) {
       console.log('close merge data');
       resolve();
     });
   });
 }
 
+function cleanData(fileName) {
+  return new Promise((resolve) => {
+    let runCleanData = spawn('python', [__dirname + '/clean_data.py', fileName], { stdio: 'inherit' });
+    runCleanData.on('data', function (data) {
+      console.log(data);
+    });
+    runCleanData.on('close', function (close) {
+      console.log('close run data');
+      resolve();
+    });
+  });
+}
+
 module.exports = {
-  epochSeparate(fileName) {
+  async epochSeparate(fileName) {
     createFolder(fileName, 'EpochSepData');
+    await cleanData(fileName);
     console.log('in epoch sep');
     return new Promise((resolve) => {
       console.log(__dirname);
-      let runEpochSeparate = spawn('python', [__dirname+'/MatlabCodes/run_matlab.py', 1, fileName], {stdio: 'inherit'});
-      runEpochSeparate.on('data', function(data) {
+      let runEpochSeparate = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 1, fileName], { stdio: 'inherit' });
+      runEpochSeparate.on('data', function (data) {
         console.log(data);
       });
-      runEpochSeparate.on('close', function(close) {
+      runEpochSeparate.on('close', function (close) {
         console.log('close epoch sep', close);
         resolve();
       });
@@ -41,11 +55,11 @@ module.exports = {
     createFolder(fileName, 'FeatureVector');
     console.log('in feature vec');
     return new Promise((resolve) => {
-      let runFeatureExtract = spawn('python', [__dirname+'/MatlabCodes/run_matlab.py', 2, fileName], {stdio: 'inherit'});
-      runFeatureExtract.on('data', function(data) {
+      let runFeatureExtract = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 2, fileName], { stdio: 'inherit' });
+      runFeatureExtract.on('data', function (data) {
         console.log(data);
       });
-      runFeatureExtract.on('close', function(close) {
+      runFeatureExtract.on('close', function (close) {
         resolve();
       });
     });
@@ -54,23 +68,24 @@ module.exports = {
   async bpnn(fileName) {
     await mergeData(fileName);
     return new Promise((resolve) => {
-      let runBpnn = spawn('python', [__dirname+'/MatlabCodes/run_matlab.py', 3, fileName], {stdio: 'inherit'});
-      runBpnn.on('data', function(data) {
+      let runBpnn = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 3, fileName], { stdio: 'inherit' });
+      runBpnn.on('data', function (data) {
         console.log(data);
       });
-      runBpnn.on('close', function(close) {
+      runBpnn.on('close', function (close) {
         resolve();
       });
     });
   },
 
-  predict() {
+  async predict() {
+    await cleanData('login');
     return new Promise((resolve) => {
-      let runPredict = spawn('python', [__dirname+'/MatlabCodes/run_matlab.py', 4], {stdio: 'inherit'});
-      runPredict.on('data', function(data) {
+      let runPredict = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 4], { stdio: 'inherit' });
+      runPredict.on('data', function (data) {
         console.log(data);
       });
-      runPredict.on('close', function(close) {
+      runPredict.on('close', function (close) {
         resolve();
       });
     });

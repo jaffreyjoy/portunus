@@ -13,7 +13,7 @@ function epoch_separation(num_of_users)
     mydata = mydata(1051:end,:);
 
     k = 1;
-    epochs = 4
+    epochs = 60
     for i=1:epochs
         filename1 = strcat(output_path,sprintf('/%d/epoch%d.csv',num_of_users,i));
         fid = fopen(filename1,'w');

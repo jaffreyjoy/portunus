@@ -12,7 +12,7 @@ function bpnn(num_of_users)
 
     disp(num_labels);
 
-    epochs = 4;
+    epochs = 60;
     rows = epochs;
     
     X_train = [];

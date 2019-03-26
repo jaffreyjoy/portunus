@@ -1,7 +1,7 @@
 import sys
 import os
 
-epoch = 4
+epoch = 60
 folder = os.path.join(os.getcwd(), 'server', 'TrainedParameters')
 folderFeature = os.path.join(os.getcwd(), 'server', 'FeatureVector')
 print(f'folder: {folder}')
