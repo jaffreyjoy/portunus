@@ -5,14 +5,14 @@ const io = require('socket.io').listen(server);
 const { spawn } = require('child_process');
 const os = require('os');
 
-const path = './process/example/read_mindwave_mobile.py';
+const path = './process/csv_writer.py';//example/read_mindwave_mobile.py';
 let recorder = null;
 let timer = null;
 
 io.on('connection', function (socket) {
-  socket.on('startRecord', function () {
+  socket.on('startRecord', function (time) {
     recorder = spawn('python2', [path]);
-    setTimer(30000);
+    setTimer(time);
     let dataBuffers = [];
     onChildData(dataBuffers);
     onChildClose(dataBuffers).then((data) => {

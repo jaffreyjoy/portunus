@@ -1,4 +1,4 @@
-function epoch_separation(num_of_users)
+function epoch_separation(num_of_users, noOfEpochs)
     mydata = [];
     formatSpec = "%3.6f";
 
@@ -13,8 +13,7 @@ function epoch_separation(num_of_users)
     mydata = mydata(1051:end,:);
 
     k = 1;
-    epochs = 60
-    for i=1:epochs
+    for i=1:noOfEpochs
         filename1 = strcat(output_path,sprintf('/%d/epoch%d.csv',num_of_users,i));
         fid = fopen(filename1,'w');
         dlmwrite(filename1,mydata(k:k+1279,:),'delimiter',',','precision','%3.6f')

@@ -55,6 +55,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import record from "../record";
+import config from "../../portunus.config.js";
 
 let that = null;
 
@@ -76,18 +77,18 @@ export default {
   created() {
     that = this;
     if (this.$route.query.type === "login") {
-      this.minute = 0;
-      this.second = 30;
+      this.minute = config.timer.login.minute;
+      this.second = config.timer.login.second;
     } else {
-      this.minute = 3;
-      this.second = 0;
+      this.minute = config.timer.register.minute;
+      this.second = config.timer.register.second;
     }
   },
   methods: {
     startRecord() {
       this.started = true;
       this.startTimer();
-      record(this.$route.query);
+      record(this.$route.query, this.getMilliseconds(this.minute, this.second));
     },
     startTimer() {
       this.timer = setInterval(() => {
@@ -108,6 +109,9 @@ export default {
       if (status == 1) {
         that.$router.push("/app");
       }
+    },
+    getMilliseconds(minute, second) {
+      return minute * 60 * 1000 + second * 1000;
     }
   }
 };

@@ -1,4 +1,4 @@
-function bpnn(num_of_users)
+function bpnn(num_of_users, noOfEpochs)
     X = load('../TrainedParameters/data.csv');
     t_error = [];
     cv_error = [];
@@ -12,8 +12,7 @@ function bpnn(num_of_users)
 
     disp(num_labels);
 
-    epochs = 60;
-    rows = epochs;
+    rows = noOfEpochs;
     
     X_train = [];
     y_train = [];
@@ -35,7 +34,7 @@ function bpnn(num_of_users)
         start = start + mid;
         X_cv = [X_cv; X(start:start+rest-1,1:num_features)];
         y_cv = [y_cv; X(start:start+rest-1,num_features+1)];
-        start = i*epochs+1;
+        start = i*noOfEpochs+1;
     end
     %randomize rows
     X_temp = [X_train,y_train];

@@ -1,15 +1,16 @@
 const fs = require('fs');
 const { spawn } = require('child_process');
+const { noOfEpochs } = require('../portunus.config');
 
-function createFolder(fileName, folder) {
-  fs.mkdirSync(`./server/${folder}/${fileName}`);
+function createFolder(noOfUsers, folder) {
+  fs.mkdirSync(`./server/${folder}/${noOfUsers}`);
   return;
 }
 
-function mergeData(fileName) {
+function mergeData(noOfUsers) {
   return new Promise((resolve) => {
     console.log('in merge data');
-    let runMergeData = spawn('python', [__dirname + '/merge_files_custom.py', fileName], { stdio: 'inherit' });
+    let runMergeData = spawn('python', [__dirname + '/merge_files_custom.py', noOfUsers, noOfEpochs], { stdio: 'inherit' });
     runMergeData.on('data', function (data) {
       console.log(data);
     });
@@ -20,9 +21,9 @@ function mergeData(fileName) {
   });
 }
 
-function cleanData(fileName) {
+function cleanData(noOfUsers) {
   return new Promise((resolve) => {
-    let runCleanData = spawn('python', [__dirname + '/clean_data.py', fileName], { stdio: 'inherit' });
+    let runCleanData = spawn('python', [__dirname + '/clean_data.py', noOfUsers, noOfEpochs], { stdio: 'inherit' });
     runCleanData.on('data', function (data) {
       console.log(data);
     });
@@ -34,13 +35,13 @@ function cleanData(fileName) {
 }
 
 module.exports = {
-  async epochSeparate(fileName) {
-    createFolder(fileName, 'EpochSepData');
-    await cleanData(fileName);
+  async epochSeparate(noOfUsers) {
+    createFolder(noOfUsers, 'EpochSepData');
+    await cleanData(noOfUsers);
     console.log('in epoch sep');
     return new Promise((resolve) => {
       console.log(__dirname);
-      let runEpochSeparate = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 1, fileName], { stdio: 'inherit' });
+      let runEpochSeparate = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 1, noOfUsers, noOfEpochs], { stdio: 'inherit' });
       runEpochSeparate.on('data', function (data) {
         console.log(data);
       });
@@ -51,11 +52,11 @@ module.exports = {
     });
   },
 
-  featureExtract(fileName) {
-    createFolder(fileName, 'FeatureVector');
+  featureExtract(noOfUsers) {
+    createFolder(noOfUsers, 'FeatureVector');
     console.log('in feature vec');
     return new Promise((resolve) => {
-      let runFeatureExtract = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 2, fileName], { stdio: 'inherit' });
+      let runFeatureExtract = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 2, noOfUsers, noOfEpochs], { stdio: 'inherit' });
       runFeatureExtract.on('data', function (data) {
         console.log(data);
       });
@@ -65,10 +66,10 @@ module.exports = {
     });
   },
 
-  async bpnn(fileName) {
-    await mergeData(fileName);
+  async bpnn(noOfUsers) {
+    await mergeData(noOfUsers);
     return new Promise((resolve) => {
-      let runBpnn = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 3, fileName], { stdio: 'inherit' });
+      let runBpnn = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 3, noOfUsers, noOfEpochs], { stdio: 'inherit' });
       runBpnn.on('data', function (data) {
         console.log(data);
       });
