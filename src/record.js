@@ -19,7 +19,7 @@ async function register(type, user, data) {
   console.log(user, res);
   if (res === 1) {
     client.default.setUserSession(user.name, user.username, user.email);
-    sendEegDataToServer({ type, data });
+    sendEegDataToServer({ user, type, data });
   }
   return;
 }
@@ -32,7 +32,7 @@ export default function (param, time) {
     if (param.type === 'register') {
       await register(param.type, param.user, data);
     } else {
-      sendEegDataToServer({ user:param.user ,type: param.type, data });
+      sendEegDataToServer({ user: param.user, type: param.type, data });
     }
   });
 }

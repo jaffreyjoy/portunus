@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { spawn } = require('child_process');
-const { noOfEpochs } = require('../portunus.config');
+const { noOfEpochs } = require('../portunus.config.json');
 
 function createFolder(noOfUsers, folder) {
   fs.mkdirSync(`./server/${folder}/${noOfUsers}`);
@@ -67,6 +67,7 @@ module.exports = {
   },
 
   async bpnn(noOfUsers) {
+    createFolder(noOfUsers, 'TrainedParameters');
     await mergeData(noOfUsers);
     return new Promise((resolve) => {
       let runBpnn = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 3, noOfUsers, noOfEpochs], { stdio: 'inherit' });
@@ -79,10 +80,10 @@ module.exports = {
     });
   },
 
-  async predict() {
+  async predict(index) {
     await cleanData('login');
     return new Promise((resolve) => {
-      let runPredict = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 4], { stdio: 'inherit' });
+      let runPredict = spawn('python', [__dirname + '/MatlabCodes/run_matlab.py', 4, index], { stdio: 'inherit' });
       runPredict.on('data', function (data) {
         console.log(data);
       });
