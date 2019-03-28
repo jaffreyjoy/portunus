@@ -1,52 +1,22 @@
 function bpnn(num_of_users, noOfEpochs)
     X = load('../TrainedParameters/data.csv');
-    t_error = [];
-    cv_error = [];
+    X_train = X(:,1:num_features);
+    y_train = X(:,num_features+1);
     
+    %initialization
     num_features = 51;
-    
     input_layer_size  = num_features;
-
     hidden_layer_size = 50;
     num_labels = num_of_users;
-
-    disp(num_labels);
-
     rows = noOfEpochs;
-    
-    X_train = [];
-    y_train = [];
 
-    X_cv = [];
-    y_cv = [];
-
-    start = 1;
-    mid = floor(rows*0.8);
-    rest = rows-mid;
-
-    fprintf('start=%d\n', start);
-    fprintf('mid=%d\n', mid);
-    fprintf('rest=%d\n', rest);
-
-    for i=1:num_labels
-        X_train = [X_train; X(start:start+mid-1,1:num_features)]; %229
-        y_train = [y_train; X(start:start+mid-1,num_features+1)];
-        start = start + mid;
-        X_cv = [X_cv; X(start:start+rest-1,1:num_features)];
-        y_cv = [y_cv; X(start:start+rest-1,num_features+1)];
-        start = i*noOfEpochs+1;
-    end
     %randomize rows
     X_temp = [X_train,y_train];
     X_temp = X_temp(randperm(size(X_temp,1)),:);
     X_train = X_temp(:,1:num_features);
     y_train = X_temp(:,num_features+1);
 
-    X_temp = [X_cv,y_cv];
-    X_temp = X_temp(randperm(size(X_temp,1)),:);
-    X_cv = X_temp(:,1:num_features);
-    y_cv = X_temp(:,num_features+1);
-
+    %normalization
     for i = 1:num_features
         Y = X_train(:,i);
         mean_m = mean(Y);
@@ -58,18 +28,9 @@ function bpnn(num_of_users, noOfEpochs)
         X_train(:,i) = Y;
     end
 
-    for i = 1:num_features
-        Y = X_cv(:,i);
-        mean_m = mu(1,i);
-        Y = Y - mean_m;
-        std_s = sigma(1,i);
-        Y = Y/std_s;
-        X_cv(:,i) = Y;
-    end
-
     m = size(X_train, 1);
 
-    %% ================ Part 6: Initializing Pameters ================
+    %Initializing Pameters
     initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);
     initial_Theta2 = randInitializeWeights(hidden_layer_size, num_labels);
 
@@ -77,10 +38,10 @@ function bpnn(num_of_users, noOfEpochs)
     initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:)];
 
 
-    %% =================== Part 8: Training NN ===================
-    options = optimset('MaxIter', 5000);
+    %Training NN
+    options = optimset('MaxIter', 250);
 
-    lambda = 0.035;
+    lambda = 0.03;
 
     costFunction = @(p) nnCostFunction(p, ...
                                     input_layer_size, ...

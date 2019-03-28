@@ -115,8 +115,13 @@ io.on('connection', function (socket) {
           await train.featureExtract(noOfUsers);
           await train.bpnn(noOfUsers);
           mail.sendEmail(...getEmailData(dataObj.user))
+<<<<<<< HEAD
             .then(res=>console.log(res))
             .catch(err=>console.log(err));
+=======
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+>>>>>>> def060e14a2ae6b34dc686b44df15053b31f6e16
           respond(true);
         }
       })
