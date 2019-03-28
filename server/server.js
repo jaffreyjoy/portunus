@@ -31,7 +31,8 @@ function getDateTime() {
 }
 
 function getEmailData(user) {
-  let link = "localhost:8080/#/login";
+  console.log('in getEmail');
+  let link = "http://localhost:8080/#/login";
   let data = {}
   data.subject = "Notification of successful account activation";
   data.html = `
@@ -109,11 +110,16 @@ io.on('connection', function (socket) {
     misc.writeToCSV(dataObj)
       .then(async (noOfUsers) => {
         if (noOfUsers === 0) {
-          await train.predict();
+          misc.getIndex(dataObj.user.username).then(async (index) => {
+            await train.predict(index);
+          });
         } else {
           await train.epochSeparate(noOfUsers);
           await train.featureExtract(noOfUsers);
           await train.bpnn(noOfUsers);
+          console.log('dataObj');
+          console.log(dataObj);
+          console.log(dataObj.user);
           mail.sendEmail(...getEmailData(dataObj.user))
 <<<<<<< HEAD
             .then(res=>console.log(res))

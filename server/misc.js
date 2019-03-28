@@ -19,6 +19,20 @@ module.exports = {
     });
   },
 
+  getIndex(username) {
+    const db = getDb();
+    return new Promise((resolve, reject) => {
+      db.collection('user').find({ username: username }).toArray(function (err, res) {
+        console.log(res);
+        if (err) {
+          reject(err);
+        } else {
+          resolve(res[0].index);
+        }
+      });
+    });
+  },
+
   writeToCSV(dataObj) {
     return new Promise((resolve, reject) => {
       if (dataObj.type === 'login') {

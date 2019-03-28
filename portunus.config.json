@@ -1,0 +1,13 @@
+{
+  "timer": {
+    "login": {
+      "minute": 0,
+      "second": 50
+    },
+    "register": {
+      "minute": 3,
+      "second": 0
+    }
+  },
+  "noOfEpochs": 60
+}

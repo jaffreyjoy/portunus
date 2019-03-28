@@ -14,10 +14,10 @@ module.exports = {
       subject: data.subject,
       html: data.html,
     };
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
       transporter.sendMail(mailOptions)
-        .then(res=>resolve(res))
-        .catch(err=>reject(err));
+        .then(res => resolve(res))
+        .catch(err => reject(err));
     });
   }
 }

@@ -5,7 +5,7 @@ const io = require('socket.io').listen(server);
 const { spawn } = require('child_process');
 const os = require('os');
 
-const path = './process/csv_writer.py';//example/read_mindwave_mobile.py';
+const path = './process/example/read_mindwave_mobile.py';
 let recorder = null;
 let timer = null;
 

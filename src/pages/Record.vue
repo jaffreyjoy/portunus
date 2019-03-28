@@ -55,7 +55,7 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import record from "../record";
-import config from "../../portunus.config.js";
+import config from "../../portunus.config.json";
 
 let that = null;
 
