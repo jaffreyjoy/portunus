@@ -107,13 +107,11 @@ export default {
   },
   async mounted() {
     this.$root.$on('getUsedSpace', () => {
-      console.log('getUsedSpace');
       localStorage.usedSpaceBytes =  this.files.reduce((acc,el)=>acc+el.size,0);
     })
   },
   methods: {
     async setFiles() {
-      console.log('setFiles')
       let userFiles = await client.getUserFiles(localStorage.username);
       that.recentFiles = userFiles.reverse().slice(0,4);
       that.files = userFiles.reverse();

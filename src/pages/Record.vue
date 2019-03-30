@@ -101,11 +101,11 @@ export default {
           this.beep.play();
           this.minute = this.second = 0;
           clearInterval(this.timer);
+          this.$router.push("/demo");
         }
       }, 1000);
     },
     postRegisterAction(status) {
-      console.log(status);
       if (status == 1) {
         that.$router.push("/app");
       }

@@ -5,7 +5,6 @@ epochs = int(sys.argv[2])
 folder = os.path.join(os.getcwd(), 'server', 'TrainedParameters')
 folderFeature = os.path.join(os.getcwd(), 'server', 'FeatureVector')
 outfile = open(f'{folder}/data.csv','w+')
-print("in merge_files_custom")
 for i in range(1, int(sys.argv[1])+1):
 	label = f'{str(i)}'
 	for j in range(1,epochs+1):

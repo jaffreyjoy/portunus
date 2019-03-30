@@ -4,6 +4,7 @@ import Record from './pages/Record.vue'
 import Login from './pages/Login.vue'
 import Terms from './pages/Terms.vue'
 import Drive from './pages/Drive.vue'
+import Demo from './pages/Demo.vue'
 
 export default [
   {
@@ -35,5 +36,10 @@ export default [
     path: '/terms',
     name: 'Terms',
     component: Terms
+  },
+  {
+    path: '/demo',
+    name: 'Demo',
+    component: Demo
   }
 ]

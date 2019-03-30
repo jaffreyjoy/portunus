@@ -13,7 +13,13 @@
       <div class="modal-content">
         <div class="modal-header mt-2">
           <h2 class="modal-title" id="uploadModalLabel">Upload Wizard</h2>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="close">
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            @click="close"
+          >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -27,11 +33,12 @@
             <br>
             <input @change="onFileSelect" type="file" name="file" id="file" class="box__file">
             <span id="uploadAreaText">
-                <label id="chooseFileText" for="file" @click="uploadHandlers">
-                  <strong>Choose a file</strong>
-                </label>
-                <span> or drag it here</span><br>
-                <span v-if="filename">{{ this.filename }}</span>
+              <label id="chooseFileText" for="file" @click="uploadHandlers">
+                <strong>Choose a file</strong>
+              </label>
+              <span>or drag it here</span>
+              <br>
+              <span v-if="filename">{{ this.filename }}</span>
             </span>
           </div>
           <div v-if="uploadClicked">
@@ -58,8 +65,19 @@
           </div>
         </div>
         <div v-if="!uploadClicked" class="modal-footer mt--4">
-          <button type="button" class="btn btn-secondary btn" data-dismiss="modal" @click="close">Close</button>
-          <button id="upload" type="button" class="btn btn-primary btn" @click="setUpload" :disabled="!filename">Upload</button>
+          <button
+            type="button"
+            class="btn btn-secondary btn"
+            data-dismiss="modal"
+            @click="close"
+          >Close</button>
+          <button
+            id="upload"
+            type="button"
+            class="btn btn-primary btn"
+            @click="setUpload"
+            :disabled="!filename"
+          >Upload</button>
         </div>
       </div>
     </div>
@@ -67,7 +85,7 @@
 </template>
 <script>
 import client from "../client.js";
-import _ from '../misc.js';
+import _ from "../misc.js";
 let that = null;
 export default {
   name: "UploadModal",
@@ -77,9 +95,9 @@ export default {
       uploadClicked: false,
       progress: 0,
       progressWidth: {
-        width: '0%'
+        width: "0%"
       },
-      message: 'Uploading'
+      message: "Uploading"
     };
   },
   async created() {
@@ -110,15 +128,15 @@ export default {
       that.progress = progress;
       that.progressWidth.width = `${progress}%`;
       if (progress === 100) {
-        that.message = 'Upload Complete !!';
+        that.message = "Upload Complete !!";
       }
     },
     close: function() {
       this.filename = false;
       this.uploadClicked = false;
       this.progress = 0;
-      this.progressWidth.width = '0%';
-      this.message = 'Uploading';
+      this.progressWidth.width = "0%";
+      this.message = "Uploading";
     }
   }
 };

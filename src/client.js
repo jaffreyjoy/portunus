@@ -5,11 +5,11 @@ const modalExport = require('./components/UploadModal');
 const dashExport = require('./components/Dashboard');
 const _ = require('./misc').default;
 
-socket.on('progress', function(progress) {
+socket.on('progress', function (progress) {
   modalExport.default.methods.updateProgress(progress);
 });
 
-socket.on('updateFiles', function() {
+socket.on('updateFiles', function () {
   dashExport.default.methods.setFiles();
 });
 
@@ -44,7 +44,7 @@ export default {
     localStorage.email = email
   },
 
-  getUserSession: async function(username) {
+  getUserSession: async function (username) {
     return new Promise(resolve => {
       socket.emit('setSession', username, async (res) => {
         await this.setUserSession(res.name, res.username, res.email);
@@ -53,18 +53,17 @@ export default {
     })
   },
 
-  getUserFiles: async function(username) {
+  getUserFiles: async function (username) {
     return new Promise((resolve) => {
       socket.emit('getUserFiles', username, async (res) => {
-        res.map(el=>_.setIconClass(el));
-        console.log(`client : `)
+        res.map(el => _.setIconClass(el));
         console.log(res)
         resolve(res);
       });
     })
   },
 
-  getUploader: async function() {
+  getUploader: async function () {
     return new SocketIOFileUpload(socket)
   }
 }

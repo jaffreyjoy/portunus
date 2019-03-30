@@ -5,9 +5,9 @@
       "second": 50
     },
     "register": {
-      "minute": 3,
-      "second": 0
+      "minute": 0,
+      "second": 10
     }
   },
-  "noOfEpochs": 60
+  "noOfEpochs": 4
 }

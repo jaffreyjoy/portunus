@@ -48,7 +48,6 @@ module.exports = {
         });
       } else {
         this.getLast().then((last) => {
-          console.log('in write');
           fs.writeFile(`./server/UserEEGData/${last - 1}.csv`, dataObj.data.join('\n'), function (err) {
             console.log(err);
             if (err) {

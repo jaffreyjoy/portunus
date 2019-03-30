@@ -14,8 +14,6 @@ const misc = require('./misc');
 const train = require('./train');
 const mail = require('./mail');
 
-let removeIn = null;
-
 function format(value) {
   return ("0" + value).slice(-2);
 }
@@ -31,7 +29,6 @@ function getDateTime() {
 }
 
 function getEmailData(user) {
-  console.log('in getEmail');
   let link = "http://localhost:8080/#/login";
   let data = {}
   data.subject = "Notification of successful account activation";
@@ -43,7 +40,7 @@ function getEmailData(user) {
           <h4>Regards,</h4>
           <h4>The Portunus Team</h4>
         `;
-  return([user.email, data]);
+  return ([user.email, data]);
 }
 
 io.on('connection', function (socket) {
@@ -100,13 +97,10 @@ io.on('connection', function (socket) {
 
   socket.on('getUserFiles', async function (username, respond) {
     const res = await exp.getUserFiles(username);
-    console.log(`server : `)
-    console.log(res)
     respond(res);
   });
 
   socket.on('eegData', async function (dataObj, respond) {
-    console.log('in eeg');
     misc.writeToCSV(dataObj)
       .then(async (noOfUsers) => {
         if (noOfUsers === 0) {
@@ -114,20 +108,19 @@ io.on('connection', function (socket) {
             await train.predict(index);
           });
         } else {
+          await train.cleanData(noOfUsers);
+          socket.emit('regProgress');
           await train.epochSeparate(noOfUsers);
+          socket.emit('regProgress');
           await train.featureExtract(noOfUsers);
+          socket.emit('regProgress');
+          await train.mergeData(noOfUsers);
+          socket.emit('regProgress');
           await train.bpnn(noOfUsers);
-          console.log('dataObj');
-          console.log(dataObj);
-          console.log(dataObj.user);
+          socket.emit('regProgress');
           mail.sendEmail(...getEmailData(dataObj.user))
-<<<<<<< HEAD
-            .then(res=>console.log(res))
-            .catch(err=>console.log(err));
-=======
             .then(res => console.log(res))
             .catch(err => console.log(err));
->>>>>>> def060e14a2ae6b34dc686b44df15053b31f6e16
           respond(true);
         }
       })
@@ -138,7 +131,6 @@ io.on('connection', function (socket) {
 app.get('/download/:username/:file', (req, res) => {
   var username = req.params.username;
   var file = req.params.file;
-  console.log(username, file);
   res.download(`./server/Uploads/${username}/${file}`, file);
 });
 

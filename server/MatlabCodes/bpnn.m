@@ -1,10 +1,11 @@
 function bpnn(num_of_users, noOfEpochs)
     X = load('../TrainedParameters/data.csv');
+    
+    num_features = 51;
     X_train = X(:,1:num_features);
     y_train = X(:,num_features+1);
     
     %initialization
-    num_features = 51;
     input_layer_size  = num_features;
     hidden_layer_size = 50;
     num_labels = num_of_users;
