@@ -2,7 +2,7 @@
   "timer": {
     "login": {
       "minute": 0,
-      "second": 50
+      "second": 10
     },
     "register": {
       "minute": 0,

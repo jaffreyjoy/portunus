@@ -9,7 +9,7 @@
         <div class="col-lg-6 col-md-8">
           <div class="card bg-secondary shadow border-0">
             <div class="card-header bg-transparent">
-              <h1 class="text-center">EEG Recording</h1>
+              <h1 class="text-center">EEG Recording Instructions</h1>
             </div>
             <div class="card-body px-lg-5 py-lg-3">
               <div v-if="started">
@@ -67,6 +67,7 @@ export default {
   },
   data() {
     return {
+      type: null,
       beep: new Audio(require("../../assets/beep.mp3")),
       started: false,
       timer: null,
@@ -77,9 +78,11 @@ export default {
   created() {
     that = this;
     if (this.$route.query.type === "login") {
+      this.type = "login";
       this.minute = config.timer.login.minute;
       this.second = config.timer.login.second;
     } else {
+      this.type = "register";
       this.minute = config.timer.register.minute;
       this.second = config.timer.register.second;
     }
@@ -101,7 +104,12 @@ export default {
           this.beep.play();
           this.minute = this.second = 0;
           clearInterval(this.timer);
-          this.$router.push("/demo");
+          this.$router.push({
+            path: "/demo",
+            query: {
+              type: this.type
+            }
+          });
         }
       }, 1000);
     },

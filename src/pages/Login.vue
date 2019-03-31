@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Navbar -->
-    <Navbar />
+    <Navbar/>
     <!-- Main Content -->
     <section>
       <!-- Header -->
@@ -11,9 +11,7 @@
             <div class="row justify-content-center">
               <div class="col-lg-5 col-md-6">
                 <h1 class="text-dark">Welcome!</h1>
-                <p
-                  class="text-lead text-white"
-                >Share files securely with Portunus!</p>
+                <p class="text-lead text-white">Share files securely with Portunus!</p>
               </div>
             </div>
           </div>
@@ -26,13 +24,11 @@
           <div class="col-lg-6 col-md-8">
             <div class="card bg-secondary shadow border-0">
               <div class="card-header bg-transparent">
-                <h1 class="text-center">
-                  Login
-                </h1>
+                <h1 class="text-center">Login</h1>
               </div>
               <div class="card-body px-lg-5 py-lg-5">
                 <div v-if="alertMessage" class="alert alert-danger fade show" role="alert">
-                    <span class="alert-inner--text">{{ alertMessage }}</span>
+                  <span class="alert-inner--text">{{ alertMessage }}</span>
                 </div>
                 <form role="form">
                   <div class="form-group">
@@ -42,21 +38,16 @@
                           <i class="ni ni-hat-3"></i>
                         </span>
                       </div>
-                      <input class="form-control" placeholder="Username" type="text" v-model="username">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text">
-                          <i class="ni ni-lock-circle-open"></i>
-                        </span>
-                      </div>
-                      <input class="form-control" placeholder="Password" type="password" v-model="password">
+                      <input
+                        class="form-control"
+                        placeholder="Username"
+                        type="text"
+                        v-model="username"
+                      >
                     </div>
                   </div>
                   <div class="text-center">
-                    <button type="button" class="btn btn-primary mt-4" @click="login">Login</button>
+                    <button type="button" class="btn btn-primary mt-4" @click="login">Continue</button>
                   </div>
                 </form>
               </div>
@@ -66,14 +57,14 @@
       </div>
     </section>
     <!-- Footer -->
-    <Footer />
+    <Footer/>
   </div>
 </template>
 
 <script>
-import client from '../client';
-import Navbar from '../components/Navbar.vue'
-import Footer from '../components/Footer.vue'
+import client from "../client";
+import Navbar from "../components/Navbar.vue";
+import Footer from "../components/Footer.vue";
 export default {
   name: "Login",
   components: {
@@ -83,30 +74,38 @@ export default {
   data() {
     return {
       username: null,
-      password: null,
       alertMessage: null,
-    }
+      userIndex: null
+    };
   },
   methods: {
-    validate: function() {
-      if (!this.username || !this.password) {
-        this.showAlert("Please fill all the fields :)");
+    validate: async function() {
+      if (!this.username) {
+        this.showAlert("Please enter your username :)");
         return false;
+      } else {
+        const index = await client.getUserIndex(this.username);
+        if (index == 0) {
+          this.showAlert("Username not found, please register first :)");
+          return false;
+        } else {
+          this.userIndex = index;
+        }
       }
       return true;
     },
     login: async function() {
-      if (this.validate()) {
+      if (await this.validate()) {
         const user = {
           username: this.username,
-          password: this.password
-        }
-        this.$router.push({ 
-          path: '/record', 
-          query: { 
-            user, 
-            type: 'login'
-          } 
+          index: this.userIndex
+        };
+        this.$router.push({
+          path: "/record",
+          query: {
+            user,
+            type: "login"
+          }
         });
       }
     },

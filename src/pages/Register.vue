@@ -2,27 +2,14 @@
   <div>
     <!-- Navbar -->
     <Navbar/>
-    <!-- Header -->
-    <div class="header py-4 py-lg-5">
-      <div class="container">
-        <div class="header-body text-center mb-5">
-          <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6">
-              <h1 class="text-dark">Welcome!</h1>
-              <p class="text-lead text-white">Share files securely with Portunus!</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- Page content -->
-    <div class="container mt--4 pb-5">
+    <div class="container mt-5 pb-5">
       <!-- Table -->
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8">
           <div class="card bg-secondary shadow border-0">
             <div class="card-header bg-transparent">
-              <h1 class="text-center">Sign Up</h1>
+              <h1 class="text-center">Register</h1>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
               <div v-if="alertMessage" class="alert alert-danger fade show" role="alert">
@@ -80,31 +67,6 @@
                     >
                   </div>
                 </div>
-                <div class="text-muted">
-                  <small>
-                    <span v-if="passwordStrengthCalc" class="font-weight-700">Password Strength:</span>
-                    <span
-                      v-if="passwordStrengthCalc"
-                      :class="[passwordStrengthClass]"
-                      class="font-weight-700"
-                    >{{ passwordStrength }}</span>
-                  </small>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="ni ni-lock-circle-open"></i>
-                      </span>
-                    </div>
-                    <input
-                      class="form-control"
-                      placeholder="Password"
-                      type="password"
-                      v-model="password"
-                    >
-                  </div>
-                </div>
                 <div class="row my-4">
                   <div class="col-12">
                     <div class="custom-control custom-control-alternative custom-checkbox">
@@ -153,9 +115,6 @@ export default {
       name: null,
       email: null,
       username: null,
-      password: null,
-      passwordStrength: null,
-      passwordStrengthClass: null,
       alertMessage: null,
       invalidUsername: null,
       invalidEmail: null,
@@ -166,7 +125,6 @@ export default {
     this.name = "anto";
     this.email = `${this.getRand()}@gmail.com`;
     this.username = `${this.getRand()}000000`;
-    this.password = "anto";
   },
   computed: {
     validUsername: function() {
@@ -188,25 +146,6 @@ export default {
         this.invalidEmail = false;
         return true;
       }
-    },
-    passwordStrengthCalc: function() {
-      if (this.password) {
-        this.passwordEntered = true;
-        const len = this.password.length;
-        if (len > 0 && len <= 3) {
-          this.passwordStrengthClass = "text-danger";
-          this.passwordStrength = "Weak";
-        } else if (len >= 4 && len <= 6) {
-          this.passwordStrengthClass = "text-warning";
-          this.passwordStrength = "Medium";
-        } else {
-          this.passwordStrengthClass = "text-success";
-          this.passwordStrength = "Strong";
-        }
-        return true;
-      } else {
-        return false;
-      }
     }
   },
   methods: {
@@ -214,7 +153,7 @@ export default {
       return Math.floor(Math.random() * 1000) + 1;
     },
     validate: function() {
-      if (!this.name || !this.email || !this.username || !this.password) {
+      if (!this.name || !this.email || !this.username) {
         this.showAlert("Please fill all the fields :)");
         return false;
       } else if (this.invalidEmail || this.invalidUsername) {
@@ -231,8 +170,7 @@ export default {
         const user = {
           name: this.name,
           email: this.email,
-          username: this.username,
-          password: this.password
+          username: this.username
         };
         client.checkExists(user).then(res => {
           if (res === 1) {

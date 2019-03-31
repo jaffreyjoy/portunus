@@ -1,7 +1,7 @@
 const io = require('socket.io-client');
 const client = require('./client');
 const recordPage = require('./pages/Record');
-const registerProgress = require('./pages/Demo');
+const Demo = require('./pages/Demo');
 let socket = null;
 
 function sendEegDataToServer(dataObj) {
@@ -14,7 +14,11 @@ function sendEegDataToServer(dataObj) {
   });
   socket.on('regProgress', function () {
     console.log('registerProgress');
-    registerProgress.default.methods.updateProgress();
+    Demo.default.methods.updateProgress();
+  });
+  socket.on('loginStatus', function (status) {
+    console.log('login status', status);
+    Demo.default.methods.updateLoginStatus(status);
   });
 }
 

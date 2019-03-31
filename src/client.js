@@ -30,9 +30,9 @@ export default {
     });
   },
 
-  login: async function (user) {
+  getUserIndex: async function (username) {
     return new Promise(resolve => {
-      socket.emit('login', user, function (res) {
+      socket.emit('getUserIndex', username, function (res) {
         resolve(res);
       });
     });

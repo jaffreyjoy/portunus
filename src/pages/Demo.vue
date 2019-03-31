@@ -14,7 +14,7 @@
               <div class="card-header bg-transparent">
                 <h3 class="text-center">Please wait...</h3>
               </div>
-              <div class="card-body" style="padding-top: 0">
+              <div v-if="!isLogin" class="card-body" style="padding-top: 0">
                 <div class="progress-wrapper">
                   <div class="progress-info">
                     <div class="progress-percentage">
@@ -36,6 +36,24 @@
                   <p style="margin-bottom: 0">Your registartion is under process.</p>
                   <p style="margin-bottom: 0">However, you need not stare at the screen till then.</p>
                   <p style="margin-bottom: 0">We will send you a mail once it is done !</p>
+                </div>
+              </div>
+              <div v-else class="card-body" style="padding-top: 0">
+                <div v-if="loginStatus">
+                  <div class="text-center mt-5">
+                    <img src="../../assets/loader.gif" alt>
+                  </div>
+                  <div class="text-center mt-3">
+                    <p style="margin-bottom: 0">We are verifying your indentity...</p>
+                  </div>
+                </div>
+                <div v-else>
+                  <div class="text-center mt-5">
+                    <div class="alert alert-danger fade show" role="alert">
+                      <span class="alert-inner--text">Login Failed !!</span>
+                    </div>
+                    <button type="button" class="btn btn-primary mt-3" @click="tryAgain">Try Again</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -61,23 +79,32 @@ export default {
   },
   data() {
     return {
+      isLogin: true,
+      loginStatus: true,
       progress: 0,
       progressWidth: {
         width: "0%"
-      },
-      message: "Registering"
+      }
     };
   },
-  beforeMount() {
+  created() {
+    this.isLogin = this.$route.query.type === "login" ? true : false;
     that = this;
-    this.updateProgress();
   },
   methods: {
     updateProgress: function() {
-      try {
-        that.progress += 20;
-        that.progressWidth.width = `${that.progress}%`;
-      } catch (e) {}
+      that.progress += 25;
+      that.progressWidth.width = `${that.progress}%`;
+    },
+    updateLoginStatus: function(status) {
+      if (status === true) {
+        that.$router.push("/app");
+      } else {
+        that.loginStatus = status;
+      }
+    },
+    tryAgain: function() {
+      this.$router.push("/login");
     }
   }
 };

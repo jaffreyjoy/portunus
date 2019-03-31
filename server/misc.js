@@ -26,6 +26,8 @@ module.exports = {
         console.log(res);
         if (err) {
           reject(err);
+        } else if (res.length === 0) {
+          resolve(0);
         } else {
           resolve(res[0].index);
         }

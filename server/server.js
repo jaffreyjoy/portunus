@@ -85,11 +85,6 @@ io.on('connection', function (socket) {
     respond(res);
   });
 
-  socket.on('login', async function (user, respond) {
-    const res = await auth.login(user);
-    respond(res);
-  });
-
   socket.on('setSession', async function (username, respond) {
     const res = await getUserDetails(username);
     respond(res);
@@ -100,16 +95,21 @@ io.on('connection', function (socket) {
     respond(res);
   });
 
+  socket.on('getUserIndex', function (username, respond) {
+    misc.getIndex(username).then(async (index) => {
+      respond(index);
+    });
+  });
+
   socket.on('eegData', async function (dataObj, respond) {
     misc.writeToCSV(dataObj)
       .then(async (noOfUsers) => {
         if (noOfUsers === 0) {
-          misc.getIndex(dataObj.user.username).then(async (index) => {
-            await train.predict(index);
+          console.log('user index:', dataObj.user.index);
+          train.predict(dataObj.user.index).then((status) => {
+            socket.emit('loginStatus', status);
           });
         } else {
-          await train.cleanData(noOfUsers);
-          socket.emit('regProgress');
           await train.epochSeparate(noOfUsers);
           socket.emit('regProgress');
           await train.featureExtract(noOfUsers);
