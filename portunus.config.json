@@ -2,12 +2,12 @@
   "timer": {
     "login": {
       "minute": 0,
-      "second": 10
+      "second": 50
     },
     "register": {
-      "minute": 0,
-      "second": 10
+      "minute": 3,
+      "second": 0
     }
   },
-  "noOfEpochs": 4
+  "noOfEpochs": 60
 }

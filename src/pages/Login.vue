@@ -4,21 +4,8 @@
     <Navbar/>
     <!-- Main Content -->
     <section>
-      <!-- Header -->
-      <div class="header py-4 py-lg-5">
-        <div class="container">
-          <div class="header-body text-center mb-5">
-            <div class="row justify-content-center">
-              <div class="col-lg-5 col-md-6">
-                <h1 class="text-dark">Welcome!</h1>
-                <p class="text-lead text-white">Share files securely with Portunus!</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <!-- Page content -->
-      <div class="container mt--4 pb-5">
+      <div class="container mt-5 pb-5">
         <!-- Table -->
         <div class="row justify-content-center">
           <div class="col-lg-6 col-md-8">
@@ -57,7 +44,7 @@
       </div>
     </section>
     <!-- Footer -->
-    <Footer/>
+    <Footer id="footer"/>
   </div>
 </template>
 
@@ -122,4 +109,11 @@ export default {
 };
 </script>
 <style scoped>
+#footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+}
 </style>

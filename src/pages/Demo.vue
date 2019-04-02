@@ -6,7 +6,7 @@
     <section>
       <!-- Header -->
       <!-- Page content -->
-      <div class="container mt--4 pb-5">
+      <div class="container mt-5 pb-5">
         <!-- Table -->
         <div class="row justify-content-center mt-5">
           <div class="col-lg-6 col-md-8">
@@ -62,7 +62,7 @@
       </div>
     </section>
     <!-- Footer -->
-    <Footer/>
+    <Footer id="footer"/>
   </div>
 </template>
 <script>
@@ -109,3 +109,13 @@ export default {
   }
 };
 </script>
+<style scoped>
+#footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+}
+</style>
+
