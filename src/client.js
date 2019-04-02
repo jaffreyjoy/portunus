@@ -44,10 +44,10 @@ export default {
     localStorage.email = email
   },
 
-  getUserSession: async function (username) {
+  getAndSetUserSession: async function (username) {
     return new Promise(resolve => {
       socket.emit('setSession', username, async (res) => {
-        await this.setUserSession(res.name, res.username, res.email);
+        this.setUserSession(res.name, res.username, res.email);
         resolve();
       });
     })

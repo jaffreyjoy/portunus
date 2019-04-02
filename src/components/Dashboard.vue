@@ -5,9 +5,9 @@
       <div class="container-fluid">
         <div class="header-body">
           <!-- Card stats -->
-          <div class="row">
+          <div v-if="!isEmpty" class="row">
             <div class="col">
-              <h3 class="ml-1 text-white">Recent</h3>
+              <h3 class="ml-1 text-white">Recents</h3>
             </div>
           </div>
           <div class="row">
@@ -18,10 +18,15 @@
                     <div class="row">
                       <div class="col">
                         <span class="h3 font-weight-bold mb-0">{{ file.name | limitLength }}</span>
-                        <h5 class="card-title text-uppercase text-muted mb-0">{{ getReadableFileSize(file.size) }}</h5>
+                        <h5
+                          class="card-title text-uppercase text-muted mb-0"
+                        >{{ getReadableFileSize(file.size) }}</h5>
                       </div>
                       <div class="col-auto">
-                        <div :class="getBg(file.color)" class="icon icon-shape text-white rounded-circle shadow">
+                        <div
+                          :class="getBg(file.color)"
+                          class="icon icon-shape text-white rounded-circle shadow"
+                        >
                           <i :class="file.icon" class="fa"></i>
                         </div>
                       </div>
@@ -77,17 +82,18 @@
                   </template>
                 </tbody>
               </table>
+              <p v-if="isEmpty" class="text-center mt-5 mb-5">You have not uploaded any files yet</p>
             </div>
           </div>
         </div>
       </div>
     </div>
     <!-- Upload Modal -->
-    <UploadModal />
+    <UploadModal/>
   </div>
 </template>
 <script>
-import UploadModal from './UploadModal';
+import UploadModal from "./UploadModal";
 import client from "../client.js";
 let that = null;
 export default {
@@ -97,59 +103,64 @@ export default {
   },
   data: function() {
     return {
-      files : null,
+      files: null,
       recentFiles: null,
-    }
+      isEmpty: true
+    };
   },
   async created() {
     that = this;
     await this.setFiles();
   },
   async mounted() {
-    this.$root.$on('getUsedSpace', () => {
-      localStorage.usedSpaceBytes =  this.files.reduce((acc,el)=>acc+el.size,0);
-    })
+    this.$root.$on("getUsedSpace", () => {
+      localStorage.usedSpaceBytes = this.files.reduce(
+        (acc, el) => acc + el.size,
+        0
+      );
+    });
   },
   methods: {
     async setFiles() {
       let userFiles = await client.getUserFiles(localStorage.username);
-      that.recentFiles = userFiles.reverse().slice(0,4);
+      that.isEmpty = userFiles.length ? false : true;
+      that.recentFiles = userFiles.reverse().slice(0, 4);
       that.files = userFiles.reverse();
-      that.$emit('setUsedSpace',
-        that.files.reduce((acc,el)=>acc+el.size,0)
-      )
+      that.$emit(
+        "setUsedSpace",
+        that.files.reduce((acc, el) => acc + el.size, 0)
+      );
     },
     getBg(str) {
-      return 'bg' + str.slice(str.indexOf('-'), str.length)
+      return "bg" + str.slice(str.indexOf("-"), str.length);
     },
     getReadableFileSize(size) {
-      if(size < 1024)
-        return `${size} B`;
-      else if(size >= 1024 && size < 1048576)
-        return `${this.limitLength(size/1024)} KB`;
-      else if(size >= 1048576 && size < 1073741824)
-        return `${this.limitLength(size/1048576)} MB`;
-      else
-        return `${this.limitLength(size/1073741824)} GB`;
+      if (size < 1024) return `${size} B`;
+      else if (size >= 1024 && size < 1048576)
+        return `${this.limitLength(size / 1024)} KB`;
+      else if (size >= 1048576 && size < 1073741824)
+        return `${this.limitLength(size / 1048576)} MB`;
+      else return `${this.limitLength(size / 1073741824)} GB`;
     },
-    limitLength(value, limit=2) {
+    limitLength(value, limit = 2) {
       var str = value.toString();
-      var pointInd = str.indexOf('.');
-      if(pointInd !== -1)
-        return str.substring(0,
-          pointInd + Math.min(limit, str.length-pointInd) + 1
+      var pointInd = str.indexOf(".");
+      if (pointInd !== -1)
+        return str.substring(
+          0,
+          pointInd + Math.min(limit, str.length - pointInd) + 1
         );
-      else
-        return str;
+      else return str;
     },
     downloadFile(filename) {
-      location.href=`http://localhost:3000/download/${localStorage.username}/${filename}`;
+      location.href = `http://localhost:3000/download/${
+        localStorage.username
+      }/${filename}`;
     }
   },
   filters: {
-    limitLength: function (str) {
-      if(str.length > 10)
-        return str.substring(0,8) + "...";
+    limitLength: function(str) {
+      if (str.length > 10) return str.substring(0, 8) + "...";
       else return str;
     }
   }

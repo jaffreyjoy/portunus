@@ -3,7 +3,7 @@
     <!-- Navbar -->
     <Navbar/>
     <!-- Page content -->
-    <div class="container py-5 mt--4 pb-5">
+    <div class="container mt-5">
       <!-- Table -->
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8">
@@ -47,7 +47,7 @@
       </div>
     </div>
     <!-- Footer -->
-    <Footer/>
+    <Footer id="footer"/>
   </div>
 </template>
 
@@ -124,3 +124,12 @@ export default {
   }
 };
 </script>
+<style scoped>
+#footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin-bottom: 0px;
+}
+</style>

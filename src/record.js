@@ -16,8 +16,11 @@ function sendEegDataToServer(dataObj) {
     console.log('registerProgress');
     Demo.default.methods.updateProgress();
   });
-  socket.on('loginStatus', function (status) {
+  socket.on('loginStatus', async function (status) {
     console.log('login status', status);
+    if (status === true) {
+      await client.default.getAndSetUserSession(dataObj.user.username);
+    }
     Demo.default.methods.updateLoginStatus(status);
   });
 }
