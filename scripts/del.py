@@ -19,7 +19,7 @@ for folder in folders:
     # print(os.listdir(folder))
     files = list(map(lambda file_name : os.path.join(folder,file_name), os.listdir(folder)))
     print(files)
-    for file in files: 
+    for file in files:
         print(file)
         os.remove(file) if os.path.isfile(file) else shutil.rmtree(file)
 
@@ -31,10 +31,12 @@ db = mc.portunus_db
 
 # print(dir(db))
 
+collections_to_remove = ["file", "user"]
 for collection_name in db.collection_names():
-    print(collection_name)
-    col = db.get_collection(collection_name)
-    # print(dir(col))
-    col.delete_many({})
+    if(collection_name in collections_to_remove)
+        print(collection_name)
+        col = db.get_collection(collection_name)
+        # print(dir(col))
+        col.delete_many({})
 
 mc.close()
