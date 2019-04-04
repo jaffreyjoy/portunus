@@ -26,9 +26,6 @@ yarn
 ```
 mongod
 ```
-```
-mongo
-```
 
 ## Start Express server
 ```
@@ -44,4 +41,4 @@ yarn process
 ```
 yarn serve
 ```
-Open `http//localhost:8080`
+> Open [`http://localhost:8080`](http://localhost:8080)
