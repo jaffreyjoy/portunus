@@ -33,7 +33,7 @@ db = mc.portunus_db
 
 collections_to_remove = ["file", "user"]
 for collection_name in db.collection_names():
-    if(collection_name in collections_to_remove)
+    if(collection_name in collections_to_remove):
         print(collection_name)
         col = db.get_collection(collection_name)
         # print(dir(col))
