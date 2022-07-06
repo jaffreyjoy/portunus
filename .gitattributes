@@ -1,2 +1,2 @@
-public/assets/* linguist-vendored
-server/MatlabCodes/lib/* linguist-vendored
+public/assets/** linguist-vendored
+server/MatlabCodes/lib/** linguist-vendored
